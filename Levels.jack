@@ -1,0 +1,42 @@
+class Level{
+    field int number, height, width;
+    field Array rows, columns;
+
+    constructor Level new(int level){
+        if (level = 1){
+            return Level.createFirstLevel();
+        }
+        if (level = 2){
+            return Level.createFirstLevel();
+        }
+        if (level = 3){
+            return Level.createFirstLevel();
+        }
+    }
+
+    function Level createFirstLevel(){
+        var Array row5;
+        let number = 1;
+        let height = 6;
+        let width = 4;
+
+        let columns = Array.new(width);
+        let columns[0] = 1;
+        let columns[1] = 6;
+        let columns[2] = 1;
+        let columns[3] = 2;
+
+        let rows = Array.new(height);
+        let rows[0] = 2;
+        let rows[1] = 1;
+        let rows[2] = 1;
+        let rows[3] = 1;
+        let rows[4] = 3;
+        let row5 = Array.new(2);
+        let row5[0] = 1;
+        let row5[0] = 1;
+        let rows[5] = row5;
+
+        return this;
+    }
+}

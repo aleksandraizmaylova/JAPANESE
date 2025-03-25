@@ -1,0 +1,20 @@
+class Game{
+	field int selectedCell;
+	field Level level;
+	field boolean isWon;
+
+
+	constructor Game new(int levelNumber){
+		let isWon = false;
+		let level = Level.new(levelNumber);
+		return this;
+	}
+
+	method void start(){
+		UI.drawNonogram(level);
+		UI.selectEmptyCell(0, 0);
+		return;
+	}
+
+
+}
