@@ -4,17 +4,34 @@ class Level{
 
     constructor Level new(int level){
         if (level = 1){
-            return Level.createFirstLevel();
+            do createFirstLevel();
         }
         if (level = 2){
-            return Level.createFirstLevel();
+            do createFirstLevel();
         }
         if (level = 3){
-            return Level.createFirstLevel();
+            do createFirstLevel();
         }
+        return this;
     }
 
-    function Level createFirstLevel(){
+    method int rows(){
+        return rows;
+    }
+
+    method int columns(){
+        return columns;
+    }
+
+    method int height(){
+        return height;
+    }
+
+    method int width(){
+        return height;
+    }
+
+    method void createFirstLevel(){
         var Array row5;
         let number = 1;
         let height = 6;
@@ -36,7 +53,12 @@ class Level{
         let row5[0] = 1;
         let row5[0] = 1;
         let rows[5] = row5;
+        return;
+    }
 
-        return this;
+    method void dispose(){
+        do rows.dispose();
+        do columns.dispose();
+        return;
     }
 }

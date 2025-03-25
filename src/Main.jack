@@ -15,9 +15,10 @@ class Main {
 		do UI.drawMainMenu();
 
 		while (true){
-			let key = Keyboard.keyPressed();
+			let key = Keyboard.readChar();
 
 			if ((currentScreen = 0) & (key = 128)){
+				let key = 0;
 				do Screen.clearScreen();
 				do UI.drawFirstLevelMenu();
 				do UI.highlightSelectedLevel(selectedLevel);
@@ -25,6 +26,7 @@ class Main {
 			}
 
 			if ((currentScreen = 1) & (key = 132)){
+				let key = 0;
 				do UI.clearSelectedLevel(selectedLevel);
 				if (selectedLevel < 3){
 					let selectedLevel = selectedLevel + 1;
@@ -35,6 +37,7 @@ class Main {
 			}
 
 			if ((currentScreen = 1) & (key = 130)){
+				let key = 0;
 				do UI.clearSelectedLevel(selectedLevel);
 				if (selectedLevel > 1){
 					let selectedLevel = selectedLevel - 1;
@@ -44,29 +47,26 @@ class Main {
 				//}
 			}
 
-
-
-
-
-
-
 			if ((currentScreen = 1) & (key = 128)){
+				let key = 0;
 				do UI.clearSelectedLevel(selectedLevel);
 				let game = Game.new(selectedLevel);
-				game.start();
-				Screen.clearScreen();
-				if (game.isWon){
-					UI.drawWinScreen();
+				do Screen.clearScreen();
+				do game.start();
+				do Screen.clearScreen();
+				if (game.isWon()){
+					do UI.drawWinScreen("oao");
 				} else {
-					UI.drawLoseScreen();
+					do UI.drawLoseScreen();
 				}
 				let currentScreen = 3;
 			}
 
 
-			if ((currentScreen = 3) & (key = 128))
-				Screen.clearScreen();
-				UI.drawFirstLevelMenu();
+			if ((currentScreen = 3) & (key = 128)){
+				let key = 0;
+				do Screen.clearScreen();
+				do UI.drawFirstLevelMenu();
 				let currentScreen = 1;
 			}
 		}
