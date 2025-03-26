@@ -5,7 +5,7 @@ class Game{
 
 
 	constructor Game new(int levelNumber){
-		let isWon = false;
+		let isWon = true;
 		let level = Level.new(levelNumber);
 		let selectedCellX = 0;
 		let selectedCellY = 0;
@@ -23,24 +23,28 @@ class Game{
 		do UI.selectEmptyCell(0, 0);
 		while (true){
 			let key = Keyboard.readChar();
+			// перемещение по "полю"
 			if (key = 132 & selectedCellX < level.width() - 1){
-				do moveRight();
+				do move(selectedCellX + 1, selectedCellY);
 			}
-
 			if (key = 130 & selectedCellX > 0){
-				do moveLeft();
+				do move(selectedCellX - 1, selectedCellY);
 			}
-
 			if (key = 131 & selectedCellY > 0){
-				do moveUp();
+				do move(selectedCellX, selectedCellY - 1);
 			}
-
 			if (key = 133 & selectedCellY < level.height() - 1){
-				do moveDown();
+				do move(selectedCellX, selectedCellY + 1);
 			}
 
+			//закрашивание/отбеливание клетки
+			if (key = 32){
+				do paintOrEraseCell();
+			}
+
+			//конец
 			if (key = 128){
-				let isWon = true;
+				do checkSolution()
 				do level.dispose();
 				return;
 			}
@@ -48,33 +52,112 @@ class Game{
 		return;
 	}
 
+
+	method void move(int newX, int newY){
+		var Array sol;
+		let sol = level.solution();
+		if (sol[selectedCellY * level.width() + selectedCellX]){
+			do UI.paintCell(selectedCellX, selectedCellY);
+		} else {
+			do UI.clearCell(selectedCellX, selectedCellY);
+		}
+		let selectedCellX = newX;
+		let selectedCellY = newY;
+		if (sol[selectedCellY * level.width() + selectedCellX]){
+			do UI.selectPaintedCell(selectedCellX, selectedCellY);
+		} else {
+			do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		}
+		return;
+	}
+
+	method void paintOrEraseCell(){
+		var Array sol;
+		let sol = level.solution();
+		if (sol[selectedCellY * level.width() + selectedCellX]){
+			do UI.selectPaintedCell(selectedCellX, selectedCellY);
+		} else {
+			do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		}
+		return;
+	}
+
+	method void checkSolution(){
+		var int i;
+		var Array sol, expectedSol;
+		let i = level.height() * level.width() - 1;
+		while (i > -1){
+			if (~(sol[i] = expectedSol[i])){
+				let isWon = false;
+			}
+			let i = i - 1;
+		}
+		return;
+	}
+
+
+
+	/*
 	method void moveRight(){
-		do UI.clearCell(selectedCellX, selectedCellY);
+		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
+			do UI.paintCell(selectedCellX, selectedCellY)
+		} else {
+			do UI.clearCell(selectedCellX, selectedCellY);
+		}
 		let selectedCellX = selectedCellX + 1;
-		do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
+			do UI.selectPaintedCell(selectedCellX, selectedCellY)
+		} else {
+			do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		}
 		return;
 	}
 
 	method void moveLeft(){
-		do UI.clearCell(selectedCellX, selectedCellY);
+		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
+			do UI.paintCell(selectedCellX, selectedCellY)
+		} else {
+			do UI.clearCell(selectedCellX, selectedCellY);
+		}
 		let selectedCellX = selectedCellX - 1;
-		do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
+			do UI.selectPaintedCell(selectedCellX, selectedCellY)
+		} else {
+			do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		}
 		return;
 	}
 
 	method void moveUp(){
-		do UI.clearCell(selectedCellX, selectedCellY);
+		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
+			do UI.paintCell(selectedCellX, selectedCellY)
+		} else {
+			do UI.clearCell(selectedCellX, selectedCellY);
+		}
 		let selectedCellY = selectedCellY - 1;
-		do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
+			do UI.selectPaintedCell(selectedCellX, selectedCellY)
+		} else {
+			do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		}
 		return;
 	}
 
 	method void moveDown(){
-		do UI.clearCell(selectedCellX, selectedCellY);
+		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
+			do UI.paintCell(selectedCellX, selectedCellY)
+		} else {
+			do UI.clearCell(selectedCellX, selectedCellY);
+		}
 		let selectedCellY = selectedCellY + 1;
-		do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
+			do UI.selectPaintedCell(selectedCellX, selectedCellY)
+		} else {
+			do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		}
 		return;
 	}
+	*/
 
 
 }
