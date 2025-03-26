@@ -1,95 +1,68 @@
 class Main {
-	static int selectedLevel, currentScreen;
-	static boolean isArrorHighlighted;
+	static int selectedLevel;
+	//static boolean isArrorHighlighted;
 
 	function void main(){
-		var char key;
-		var Game game;
-		let selectedLevel = 1;
-		let currentScreen = 0;
-		// 0 MainMenu
-		// 1-2 LevelMenu
-		// 3 GameScreen
-		let isArrorHighlighted = false;
+		//let isArrorHighlighted = false;
+		do Main.goToMainMenu();
+		return;
+	}
 
+	function void goToMainMenu(){
+		var int key;
+		do Screen.clearScreen();
 		do UI.drawMainMenu();
-
 		while (true){
 			let key = Keyboard.readChar();
-
-			if ((currentScreen = 0) & (key = 128)){
-				let key = 0;
-				do Screen.clearScreen();
-				do UI.drawFirstLevelMenu();
-				do UI.highlightSelectedLevel(selectedLevel);
-				let currentScreen = 1;
-			}
-
-			if ((currentScreen = 1) & (key = 132)){
-				let key = 0;
-				do UI.clearSelectedLevel(selectedLevel);
-				if (selectedLevel < 3){
-					let selectedLevel = selectedLevel + 1;
-					do UI.highlightSelectedLevel(selectedLevel);
-				} //else {
-					//do UI.highlightRightArror();
-				//}
-			}
-
-			if ((currentScreen = 1) & (key = 130)){
-				let key = 0;
-				do UI.clearSelectedLevel(selectedLevel);
-				if (selectedLevel > 1){
-					let selectedLevel = selectedLevel - 1;
-					do UI.highlightSelectedLevel(selectedLevel);
-				} //else {
-					//do UI.highlightRightArror();
-				//}
-			}
-
-			if ((currentScreen = 1) & (key = 128)){
-				let key = 0;
-				do UI.clearSelectedLevel(selectedLevel);
-				let game = Game.new(selectedLevel);
-				do Screen.clearScreen();
-				do game.start();
-				do Screen.clearScreen();
-				if (game.isWon()){
-					do UI.drawWinScreen("oao");
-				} else {
-					do UI.drawLoseScreen();
-				}
-				let currentScreen = 3;
-			}
-
-
-			if ((currentScreen = 3) & (key = 128)){
-				let key = 0;
-				do Screen.clearScreen();
-				do UI.drawFirstLevelMenu();
-				let currentScreen = 1;
+			if (key = 128){
+				do Main.goToLevelMenu();
 			}
 		}
 		return;
 	}
 
-
-
-
-
-	function void test(){
-		var char readChar;
+	function void goToLevelMenu(){
+		var int key;
+		var Game game;
+		let selectedLevel = 1;
+		do Screen.clearScreen();
+		do UI.drawFirstLevelMenu();
+		do UI.highlightSelectedLevel(selectedLevel);
 		while (true){
-			let readChar = Keyboard.keyPressed();
-			if (readChar = 48){
-				do UI.drawMainMenu();
+			let key = Keyboard.readChar();
+
+			//выбор уровня 1-3
+			if (key = 132){
+				do UI.clearSelectedLevel(selectedLevel);
+				if (selectedLevel < 3){
+					let selectedLevel = selectedLevel + 1;
+					do UI.highlightSelectedLevel(selectedLevel);
+				} //else {
+				//	do UI.highlightRightArror();
+				//}
 			}
-			if (readChar = 49){
-				do UI.drawFirstLevelMenu();
+			if (key = 130){
+				do UI.clearSelectedLevel(selectedLevel);
+				if (selectedLevel > 1){
+					let selectedLevel = selectedLevel - 1;
+					do UI.highlightSelectedLevel(selectedLevel);
+				}
 			}
-			// (readChar = 48) - проверка на нажатие клавиши 0
-			// (readChar = 49) - проверка на нажатие клавиши 1 и т.д.
-			// можешь добавить еще таких ифов и тестировать больше методов за раз
+
+			//запуск уровня
+			if (key = 128){
+				let game = Game.new(selectedLevel);
+				do Screen.clearScreen();
+				do game.start();
+				//конец уровня
+				let key = 0;
+				while (true){
+					let key = Keyboard.readChar();
+					if (key = 128){
+						do Main.goToMainMenu();
+					}
+				}
+			}
 		}
 		return;
 	}

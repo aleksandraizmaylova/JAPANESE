@@ -17,6 +17,10 @@ class Game{
         return isWon;
     }
 
+	method int selectedCell(){
+		return selectedCellY * level.width() + selectedCellX;
+	}
+
 	method void start(){
 		var int key;
 		do UI.drawNonogram(level.rows(), level.columns());
@@ -44,7 +48,13 @@ class Game{
 
 			//конец
 			if (key = 128){
-				do checkSolution()
+				do checkSolution();
+				do Screen.clearScreen();
+				if (isWon){
+					do UI.drawWinScreen("it was a jiraf");
+				} else {
+					do UI.drawLoseScreen();
+				}
 				do level.dispose();
 				return;
 			}
@@ -56,14 +66,14 @@ class Game{
 	method void move(int newX, int newY){
 		var Array sol;
 		let sol = level.solution();
-		if (sol[selectedCellY * level.width() + selectedCellX]){
+		if (sol[selectedCell()]){
 			do UI.paintCell(selectedCellX, selectedCellY);
 		} else {
 			do UI.clearCell(selectedCellX, selectedCellY);
 		}
 		let selectedCellX = newX;
 		let selectedCellY = newY;
-		if (sol[selectedCellY * level.width() + selectedCellX]){
+		if (sol[selectedCell()]){
 			do UI.selectPaintedCell(selectedCellX, selectedCellY);
 		} else {
 			do UI.selectEmptyCell(selectedCellX, selectedCellY);
@@ -74,10 +84,12 @@ class Game{
 	method void paintOrEraseCell(){
 		var Array sol;
 		let sol = level.solution();
-		if (sol[selectedCellY * level.width() + selectedCellX]){
-			do UI.selectPaintedCell(selectedCellX, selectedCellY);
-		} else {
+		if (sol[selectedCell()]){
+			let sol[selectedCell()] = false;
 			do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		} else {
+			let sol[selectedCell()] = true;
+			do UI.selectPaintedCell(selectedCellX, selectedCellY);
 		}
 		return;
 	}
@@ -86,7 +98,9 @@ class Game{
 		var int i;
 		var Array sol, expectedSol;
 		let i = level.height() * level.width() - 1;
-		while (i > -1){
+		let sol = level.solution();
+		let expectedSol = level.expectedSolution();
+		while (i > 0){
 			if (~(sol[i] = expectedSol[i])){
 				let isWon = false;
 			}
@@ -94,70 +108,4 @@ class Game{
 		}
 		return;
 	}
-
-
-
-	/*
-	method void moveRight(){
-		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
-			do UI.paintCell(selectedCellX, selectedCellY)
-		} else {
-			do UI.clearCell(selectedCellX, selectedCellY);
-		}
-		let selectedCellX = selectedCellX + 1;
-		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
-			do UI.selectPaintedCell(selectedCellX, selectedCellY)
-		} else {
-			do UI.selectEmptyCell(selectedCellX, selectedCellY);
-		}
-		return;
-	}
-
-	method void moveLeft(){
-		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
-			do UI.paintCell(selectedCellX, selectedCellY)
-		} else {
-			do UI.clearCell(selectedCellX, selectedCellY);
-		}
-		let selectedCellX = selectedCellX - 1;
-		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
-			do UI.selectPaintedCell(selectedCellX, selectedCellY)
-		} else {
-			do UI.selectEmptyCell(selectedCellX, selectedCellY);
-		}
-		return;
-	}
-
-	method void moveUp(){
-		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
-			do UI.paintCell(selectedCellX, selectedCellY)
-		} else {
-			do UI.clearCell(selectedCellX, selectedCellY);
-		}
-		let selectedCellY = selectedCellY - 1;
-		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
-			do UI.selectPaintedCell(selectedCellX, selectedCellY)
-		} else {
-			do UI.selectEmptyCell(selectedCellX, selectedCellY);
-		}
-		return;
-	}
-
-	method void moveDown(){
-		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
-			do UI.paintCell(selectedCellX, selectedCellY)
-		} else {
-			do UI.clearCell(selectedCellX, selectedCellY);
-		}
-		let selectedCellY = selectedCellY + 1;
-		if (level.solution()[selectedCellY * level.width() + selectedCellX]){
-			do UI.selectPaintedCell(selectedCellX, selectedCellY)
-		} else {
-			do UI.selectEmptyCell(selectedCellX, selectedCellY);
-		}
-		return;
-	}
-	*/
-
-
 }
