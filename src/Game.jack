@@ -1,20 +1,111 @@
 class Game{
-	field int selectedCell;
+	field int selectedCellX, selectedCellY;
 	field Level level;
 	field boolean isWon;
 
 
 	constructor Game new(int levelNumber){
-		let isWon = false;
+		let isWon = true;
 		let level = Level.new(levelNumber);
+		let selectedCellX = 0;
+		let selectedCellY = 0;
 		return this;
 	}
 
+
+    method boolean isWon(){
+        return isWon;
+    }
+
+	method int selectedCell(){
+		return selectedCellY * level.width() + selectedCellX;
+	}
+
 	method void start(){
-		UI.drawNonogram(level);
-		UI.selectEmptyCell(0, 0);
+		var int key;
+		do UI.drawNonogram(level.rows(), level.columns());
+		do UI.selectEmptyCell(0, 0);
+		while (true){
+			let key = Keyboard.readChar();
+			// перемещение по "полю"
+			if (key = 132 & selectedCellX < level.width() - 1){
+				do move(selectedCellX + 1, selectedCellY);
+			}
+			if (key = 130 & selectedCellX > 0){
+				do move(selectedCellX - 1, selectedCellY);
+			}
+			if (key = 131 & selectedCellY > 0){
+				do move(selectedCellX, selectedCellY - 1);
+			}
+			if (key = 133 & selectedCellY < level.height() - 1){
+				do move(selectedCellX, selectedCellY + 1);
+			}
+
+			//закрашивание/отбеливание клетки
+			if (key = 32){
+				do paintOrEraseCell();
+			}
+
+			//конец
+			if (key = 128){
+				do checkSolution();
+				do Screen.clearScreen();
+				if (isWon){
+					do UI.drawWinScreen("it was a jiraf");
+				} else {
+					do UI.drawLoseScreen();
+				}
+				do level.dispose();
+				return;
+			}
+		}
 		return;
 	}
 
 
+	method void move(int newX, int newY){
+		var Array sol;
+		let sol = level.solution();
+		if (sol[selectedCell()]){
+			do UI.paintCell(selectedCellX, selectedCellY);
+		} else {
+			do UI.clearCell(selectedCellX, selectedCellY);
+		}
+		let selectedCellX = newX;
+		let selectedCellY = newY;
+		if (sol[selectedCell()]){
+			do UI.selectPaintedCell(selectedCellX, selectedCellY);
+		} else {
+			do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		}
+		return;
+	}
+
+	method void paintOrEraseCell(){
+		var Array sol;
+		let sol = level.solution();
+		if (sol[selectedCell()]){
+			let sol[selectedCell()] = false;
+			do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		} else {
+			let sol[selectedCell()] = true;
+			do UI.selectPaintedCell(selectedCellX, selectedCellY);
+		}
+		return;
+	}
+
+	method void checkSolution(){
+		var int i;
+		var Array sol, expectedSol;
+		let i = level.height() * level.width() - 1;
+		let sol = level.solution();
+		let expectedSol = level.expectedSolution();
+		while (i > 0){
+			if (~(sol[i] = expectedSol[i])){
+				let isWon = false;
+			}
+			let i = i - 1;
+		}
+		return;
+	}
 }
