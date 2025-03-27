@@ -23,27 +23,32 @@ class Game{
 
 	method void start(){
 		var int key;
-		do UI.drawNonogram(level.rows(), level.columns());
-		do UI.selectEmptyCell(0, 0);
+		do UI.drawLevel();
+		do UI.selectEmptyCell(selectedCellX, selectedCellY);
 		while (true){
-			let key = Keyboard.readChar();
+			let key = Keyboard.keyPressed();
 			// перемещение по "полю"
-			if (key = 132 & selectedCellX < level.width() - 1){
-				do move(selectedCellX + 1, selectedCellY);
+			if (key = 132){//right
+				do move(1, 0);
+				do Sys.wait(250);
 			}
-			if (key = 130 & selectedCellX > 0){
-				do move(selectedCellX - 1, selectedCellY);
+			if (key = 130){//left
+				do move(-1, 0);
+				do Sys.wait(250);
 			}
-			if (key = 131 & selectedCellY > 0){
-				do move(selectedCellX, selectedCellY - 1);
+			if (key = 131){//up
+				do move(0, -1);
+				do Sys.wait(250);
 			}
-			if (key = 133 & selectedCellY < level.height() - 1){
-				do move(selectedCellX, selectedCellY + 1);
+			if (key = 133){//down
+				do move(0, 1);
+				do Sys.wait(250);
 			}
 
 			//закрашивание/отбеливание клетки
 			if (key = 32){
 				do paintOrEraseCell();
+				do Sys.wait(250);
 			}
 
 			//конец
@@ -56,14 +61,14 @@ class Game{
 					do UI.drawLoseScreen();
 				}
 				do level.dispose();
+				do Sys.wait(250);
 				return;
 			}
 		}
 		return;
 	}
 
-
-	method void move(int newX, int newY){
+	method void move(int deltaX, int deltaY){
 		var Array sol;
 		let sol = level.solution();
 		if (sol[selectedCell()]){
@@ -71,8 +76,14 @@ class Game{
 		} else {
 			do UI.clearCell(selectedCellX, selectedCellY);
 		}
-		let selectedCellX = newX;
-		let selectedCellY = newY;
+
+		if (((selectedCellX + deltaX) < level.width()) & ((selectedCellX + deltaX) > -1)){
+			let selectedCellX = selectedCellX + deltaX;
+		}
+		if (((selectedCellY + deltaY) < level.height()) & ((selectedCellY + deltaY) > -1)){
+			let selectedCellY = selectedCellY + deltaY;
+		}
+		
 		if (sol[selectedCell()]){
 			do UI.selectPaintedCell(selectedCellX, selectedCellY);
 		} else {
