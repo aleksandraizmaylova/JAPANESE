@@ -5,6 +5,7 @@ class Main {
 		do Main.goToMainMenu();
 		return;
 	}
+	// гит - изобретение сатаны
 
 	function void goToMainMenu(){
 		var int key;
