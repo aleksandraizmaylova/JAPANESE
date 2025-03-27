@@ -1,128 +1,188 @@
 class UI {
 
-  function void clearScreen(){
-  // просто очистка экрана
-    do Screen.setColor(false);
-    do Screen.clearScreen();
-    return;
-  }
+	static int levelBeginRow, levelBeginCol, levelOffsetCol;
 
-  // функции отрисовки менюшек
-  function void drawFrame(){
-    //рисует рамку
-    do Screen.setColor(true);
-    //1 рамка
-    do Screen.drawLine(5, 5, 506, 5);
-    do Screen.drawLine(506, 5, 506, 250);
-    do Screen.drawLine(5, 250, 506, 250);
-    do Screen.drawLine(5, 5, 5, 250);
-    // 2 рамка
-    do Screen.drawLine(7, 7, 504, 7);
-    do Screen.drawLine(504, 7, 504, 248);
-    do Screen.drawLine(7, 248, 504, 248);
-    do Screen.drawLine(7, 7, 7, 248);
-    return;
-  }
+	function void clearScreen(){
+	// просто очистка экрана
+		do Screen.setColor(false);
+		do Screen.clearScreen();
+		return;
+	}
 
-  function void drawMainMenu(){
-  // нарисовать главную менюшку: название игры, "Press Enter to play", имена авторов (нас) и, если хочешь, любые визуальные приколюхи
-    do UI.clearScreen();
-    do UI.drawFrame();
-    do Output.moveCursor(8, 24);
-    do Output.printString("J A P A N E S E");
-    do Output.moveCursor(21,3);
-    do Output.printString("Authors: Izmaylova Aleksandra, Pavlova Anna");
-    do Output.moveCursor(14,23);
-    do Output.printString("Press Enter to play");
-    return;
-  }
-  
-  //если хочешь, можно разместить все 6 уровней на одной странице, тогда надо сделать только 1 из 2 следующих методов и убрать методы для стрелок
-  function void drawFirstLevelMenu(){
-  // нарисовать меню с выбором первых 3 уровней
-    do UI.clearScreen();
-    do UI.drawFrame();
-    do Output.moveCursor(5,28);
-    do Output.printString("LEVELS");
-    return;
-  }
-  function void drawSecondLevelMenu(){
-  // нарисовать меню с выбором следующих 3 уровней
-  return;
-  }
+	// функции отрисовки менюшек
+	function void drawFrame(){
+		//рисует рамку
+		do Screen.setColor(true);
+		//1 рамка
+		do Screen.drawLine(5, 5, 506, 5);
+		do Screen.drawLine(506, 5, 506, 250);
+		do Screen.drawLine(5, 250, 506, 250);
+		do Screen.drawLine(5, 5, 5, 250);
+		// 2 рамка
+		do Screen.drawLine(7, 7, 504, 7);
+		do Screen.drawLine(504, 7, 504, 248);
+		do Screen.drawLine(7, 248, 504, 248);
+		do Screen.drawLine(7, 7, 7, 248);
+		return;
+	}
 
-  // функции выделения кнопок на менюшке уровней
+	function void drawMainMenu(){
+	// нарисовать главную менюшку: название игры, "Press Enter to play", имена авторов (нас) и, если хочешь, любые визуальные приколюхи
+		do UI.clearScreen();
+		do UI.drawFrame();
+		do Output.moveCursor(8, 24);
+		do Output.printString("J A P A N E S E");
+		do Output.moveCursor(21,3);
+		do Output.printString("Authors: Izmaylova Aleksandra, Pavlova Anna");
+		do Output.moveCursor(14,22);
+		do Output.printString("Press Enter to play");
+		return;
+	}
+	
+	//если хочешь, можно разместить все 6 уровней на одной странице, тогда надо сделать только 1 из 2 следующих методов и убрать методы для стрелок
+	function void drawSquareofSymbol(int i, int j, int n, boolean color){
+		do Screen.setColor(color);
+		do Screen.drawLine(j * 8 - n, i * 11 - n, 8 * (j + 1) + n,  i * 11 - n);
+		do Screen.drawLine(8 * (j + 1) + n, i * 11 - n, 8 * (j + 1) + n, 11 * (i + 1) + n);
+		do Screen.drawLine(j * 8 - n, 11 * (i + 1) + n, 8 * (j + 1) + n, 11 * (i + 1) + n);
+		do Screen.drawLine(j * 8 - n, i * 11 - n, j * 8 - n, 11 * (i + 1) + n);
+		return;
+	}
 
-  function void highlightSelectedLevel(int level){
-  // выделить текущий уровень
-  // это может быть закрашивание, добавление полосочки, доп обводка и что угодно из такого
-  // можно разбить на 6 отдельных методов, либо передавать номер уровня сюда, хз как удобней будет
-  return;
-  }
-  function void clearSelectedLevel(int level){
-  // то же, что и в предыдущем методе, но надо наоборот убрать выделение (вернуть как было)
-  return;
-  }
-  function void highlightRightArror(){
-  // выделить правую стрелку (на первом экране уровней)
-  return;
-  }
-  function void highlightLeftArror(){
-  // выделить левую стрелку (на втором экране уровней)
-  // если хочешь, можно эти два (или даже четыре) метода забабахать в один
-  return;
-  }
-  function void clearRightArror(){
-  // убрать выделение правой стрелки
-  return;
-  }
-  function void clearLeftArror(){
-  // убрать выделение правой стрелки
-  return;
-  }
+	function void drawLevelMenu(){
+	// нарисовать меню с выбором всех уровней
+		var int i;
+		let levelBeginRow = 15;
+	    let levelBeginCol = 18;
+		let levelOffsetCol = 6;
+		do UI.clearScreen();
+		do UI.drawFrame();
+		do Output.moveCursor(5, 28);
+		do Output.printString("LEVELS");
+		let i = 0;
+		while (i < 6) {
+			do Output.moveCursor(levelBeginRow, i * levelOffsetCol + levelBeginCol);
+			do Output.printInt(i + 1);
+			do UI.drawSquareofSymbol(levelBeginRow, i * levelOffsetCol + levelBeginCol, 3, true);
+			let i = i + 1;
+		}
+		return;
+	}
+	// функции выделения кнопок на менюшке уровней
 
-  // функции отрисовки уровней
+	function void highlightSelectedLevel(int level){
+	// выделить текущий уровень
+	// это может быть закрашивание, добавление полосочки, доп обводка и что угодно из такого
+	// можно разбить на 6 отдельных методов, либо передавать номер уровня сюда, хз как удобней будет
+		var int i;
+		let i = 0;
+		// стираем предыдущий выбор 
+		while (i < 6) {
+			do UI.drawSquareofSymbol(levelBeginRow, i * levelOffsetCol + levelBeginCol, 5, false);
+			let i = i + 1;
+		}		
+		do UI.drawSquareofSymbol(levelBeginRow, (level - 1) * levelOffsetCol + levelBeginCol, 5, true);		
+		return;
+	}
 
-  function void drawLevel(){
-  //
-  return;
-  }
+	// функции отрисовки уровней
 
-  function void drawNonogram(Array rows, Array lines){
-  // пока сама хз, как это лучше осуществить, но оно должно рисовать пустое прямоугольное поле для кроссворда и цифры к нему
-  // на вход будут даны списки рядов и столбцов в любом удобном формате
-  // если понадобится, можно добавить на вход высоту и ширину
-  return;
-  }
+	function void drawLevel(){
+		var int xField, yField, xPosBeg, yPosBeg, xLeftField, yUpField;
+		var int i;
+		let xField = 10;
+		let yField = 10;
+		let xPosBeg = 80;
+		let yPosBeg = 52;
+		let xLeftField = 4;
+		let yUpField = 4;
+
+		do UI.clearScreen();
+		do UI.drawFrame();
+		do Output.moveCursor(7, 9);
+		do Output.printString("2");
+		do Output.moveCursor(8, 9);
+		do Output.printString("3");
+
+		
+		// горизонтальный линии 
+		let i = 0;
+		while (i < (yField + 1)) {
+			do Screen.drawLine(xPosBeg - (12 * xLeftField), i * 12 + yPosBeg, xPosBeg, i * 12 + yPosBeg);	
+			if ((i = 0) | (i = 5) | (i = 10)) {
+				do Screen.drawLine(xPosBeg - (12 * xLeftField), i * 12 + yPosBeg + 1, xPosBeg, i * 12 + yPosBeg + 1);				
+			}
+			let i = i + 1;
+		}
+
+        let i = 0;
+		while (i < (yField + 1)) {
+			do Screen.drawLine(xPosBeg, i * 12 + yPosBeg, 12 * xField + xPosBeg, i * 12 + yPosBeg);	
+			if ((i = 0) | (i = 5) | (i = 10)) {
+				do Screen.drawLine(xPosBeg, i * 12 + yPosBeg + 1, 12 * xField + xLeftField + xPosBeg, i * 12 + yPosBeg + 1);				
+			}
+			let i = i + 1;
+		}
+		
+		
+		// вертикальные линии
+		let i = 0;
+		while (i < (xLeftField + 1)) {
+			do Screen.drawLine(xPosBeg - (i * 12), yPosBeg, xPosBeg - (i * 12), (12 * yField) + yPosBeg);
+			if (i = xLeftField) {
+				do Screen.drawLine(xPosBeg - (i * 12) + 1, yPosBeg, xPosBeg - (i * 12) + 1, (12 * yField) + yPosBeg);
+			}
+			let i = i + 1;
+		}
 
 
-  // так как поля разных уровней разного размера, скорее всего клетки с одними и теми же координатами будут находиться в разных местах экрана на разных уровнях
-  // если понадобится, можно передавать в метод номер уровня, чтобы в зависимости от него выбиралась точка отсчета на экране
-  function void selectEmptyCell(int x, int y){
-  // должно выделять пустую клетку на нарисованном поле по заданным координатам
-  return;
-  }
-  function void selectPaintedCell(int x, int y){
-  // должно выделять уже закрашенную клетку на нарисованном поле по заданным координатам
-  return;
-  }
-  function void clearCell(int x, int y){
-  // должно очищать клетку на нарисованном поле по заданным координатам
-  return;
-  }
-  function void paintCell(int x, int y){
-  // должно закрашивать клетку на нарисованном поле по заданным координатам
-  return;
-  }
-  function void drawWinScreen(String str){
-  // нарисовать экран при победе
-  // например надпись "you won"
-  // можно добавить слова с пояснение к картинке: "It was ..." (... передавать в метод, чтобы фраза отличалась в зависимости от уровня)
-  return;
-  }
-  function void drawLoseScreen(){
-  // нарисовать экран при победе
-  // например надпись "you lose"
-  return;
-  }
+		let i = 0;
+		while (i < (xField +  1)) {
+			do Screen.drawLine((i * 12) + xPosBeg, yPosBeg, (i * 12) + xPosBeg, (12 * yField) + yPosBeg);
+			if ((i = 0) | (i = 5) | (i = 10)) {
+				do Screen.drawLine((i * 12) + xPosBeg + 1, yPosBeg, (i * 12) + xPosBeg + 1, (12 * yField) + yPosBeg);
+			}
+			let i = i + 1;
+		}
+		return;
+	}
+
+	function void drawNonogram(Array rows, Array lines){
+	// пока сама хз, как это лучше осуществить, но оно должно рисовать пустое прямоугольное поле для кроссворда и цифры к нему
+	// на вход будут даны списки рядов и столбцов в любом удобном формате
+	// если понадобится, можно добавить на вход высоту и ширину
+		return;
+	}
+
+
+	// так как поля разных уровней разного размера, скорее всего клетки с одними и теми же координатами будут находиться в разных местах экрана на разных уровнях
+	// если понадобится, можно передавать в метод номер уровня, чтобы в зависимости от него выбиралась точка отсчета на экране
+	function void selectEmptyCell(int x, int y){
+	// должно выделять пустую клетку на нарисованном поле по заданным координатам
+	return;
+	}
+	function void selectPaintedCell(int x, int y){
+	// должно выделять уже закрашенную клетку на нарисованном поле по заданным координатам
+	return;
+	}
+	function void clearCell(int x, int y){
+	// должно очищать клетку на нарисованном поле по заданным координатам
+	return;
+	}
+	function void paintCell(int x, int y){
+	// должно закрашивать клетку на нарисованном поле по заданным координатам
+	return;
+	}
+
+	function void drawWinScreen(String str){
+	// нарисовать экран при победе
+	// например надпись "you won"
+	// можно добавить слова с пояснение к картинке: "It was ..." (... передавать в метод, чтобы фраза отличалась в зависимости от уровня)
+	return;
+	}
+	function void drawLoseScreen(){
+	// нарисовать экран при победе
+	// например надпись "you lose"
+	return;
+	}
 }
