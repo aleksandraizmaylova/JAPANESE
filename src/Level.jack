@@ -1,5 +1,5 @@
 class Level{
-    field int number, height, width;
+    field int height, width;
     field Array rows, columns, expectedSolution, solution;
 
     constructor Level new(int level){
@@ -41,55 +41,23 @@ class Level{
     }
 
     method void createFirstLevel(){
-        var Array row5;
-
-        let number = 1;
+        var Array arr;
+        var ArrayExtension arrExt;
         let height = 6;
         let width = 4;
 
-        let columns = Array.new(width);
-        let columns[0] = 1;
-        let columns[1] = 6;
-        let columns[2] = 1;
-        let columns[3] = 2;
+        let arrExt = ArrayExtension.newIntArray("1612");
+        let columns = arrExt.array();
+        let arrExt = ArrayExtension.newIntArray("211130");
+        let rows = arrExt.array();
 
-        let rows = Array.new(height);
-        let rows[0] = 2;
-        let rows[1] = 1;
-        let rows[2] = 1;
-        let rows[3] = 1;
-        let rows[4] = 3;
-        let row5 = Array.new(2);
-        let row5[0] = 1;
-        let row5[0] = 1;
-        let rows[5] = row5;
+        let arrExt = ArrayExtension.newIntArray("11");
+        let arr = arrExt.array();
+        let rows[5] = arr;
 
-        let solution = Array.new(width * height);
-        let expectedSolution = Array.new(width * height);
-        let expectedSolution[0] = true;
-        let expectedSolution[1] = true;
-        let expectedSolution[2] = false;
-        let expectedSolution[3] = false;
-        let expectedSolution[4] = false;
-        let expectedSolution[5] = true;
-        let expectedSolution[6] = false;
-        let expectedSolution[7] = false;
-        let expectedSolution[8] = false;
-        let expectedSolution[9] = true;
-        let expectedSolution[10] = false;
-        let expectedSolution[11] = false;
-        let expectedSolution[12] = false;
-        let expectedSolution[13] = true;
-        let expectedSolution[14] = false;
-        let expectedSolution[15] = false;
-        let expectedSolution[16] = false;
-        let expectedSolution[17] = true;
-        let expectedSolution[18] = true;
-        let expectedSolution[19] = true;
-        let expectedSolution[20] = false;
-        let expectedSolution[21] = true;
-        let expectedSolution[22] = false;
-        let expectedSolution[23] = true;
+        let solution = Array.new(width * height); 
+        let arrExt = ArrayExtension.newBooleanArray("110001000100010001110101");
+        let expectedSolution = arrExt.array();
         return;
     }
 
