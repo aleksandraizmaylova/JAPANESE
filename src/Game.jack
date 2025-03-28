@@ -25,6 +25,7 @@ class Game{
 		var int key;
 		do UI.drawLevel();
 		do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		do Sys.wait(250);
 		while (true){
 			let key = Keyboard.keyPressed();
 			// перемещение по "полю"
@@ -111,7 +112,7 @@ class Game{
 		let i = level.height() * level.width() - 1;
 		let sol = level.solution();
 		let expectedSol = level.expectedSolution();
-		while (i > 0){
+		while (i > -1){
 			if (~(sol[i] = expectedSol[i])){
 				let isWon = false;
 			}

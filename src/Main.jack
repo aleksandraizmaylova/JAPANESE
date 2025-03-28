@@ -11,10 +11,10 @@ class Main {
 		var int key;
 		do Screen.clearScreen();
 		do UI.drawMainMenu();
+		do Sys.wait(250);
 		while (true){
 			let key = Keyboard.keyPressed();
 			if (key = 128){
-				do Sys.wait(250);
 				do Main.goToLevelMenu();
 			}
 		}
@@ -28,27 +28,27 @@ class Main {
 		do Screen.clearScreen();
 		do UI.drawLevelMenu();
 		do UI.highlightSelectedLevel(selectedLevel);
+		do Sys.wait(250);
 		while (true){
 			let key = Keyboard.keyPressed();
 
 			if (key = 132){
-				do Sys.wait(250);
 				if (selectedLevel < 6){
 					let selectedLevel = selectedLevel + 1;
 					do UI.highlightSelectedLevel(selectedLevel);
 				}
+				do Sys.wait(250);
 			}
 			if (key = 130){
-				do Sys.wait(250);
 				if (selectedLevel > 1){
 					let selectedLevel = selectedLevel - 1;
 					do UI.highlightSelectedLevel(selectedLevel);
 				}
+				do Sys.wait(250);
 			}
 
 			//запуск уровня
 			if (key = 128){
-				do Sys.wait(250);
 				let game = Game.new(selectedLevel);
 				do Screen.clearScreen();
 				do game.start();
@@ -57,7 +57,6 @@ class Main {
 				while (true){
 					let key = Keyboard.keyPressed();
 					if (key = 128){
-						do Sys.wait(250);
 						do Main.goToMainMenu();
 					}
 				}
