@@ -59,8 +59,18 @@ class Game{
 				} else {
 					do UI.drawLoseScreen();
 				}
-				do level.dispose();
 				do Sys.wait(250);
+				do level.dispose();
+				while (true){
+					let key = Keyboard.keyPressed();
+					if (key = 128){
+						return;
+					}
+				}
+			}
+
+			if (key = 140){
+				do Screen.clearScreen();
 				return;
 			}
 		}

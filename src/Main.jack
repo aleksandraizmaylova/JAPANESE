@@ -17,6 +17,9 @@ class Main {
 			if (key = 128){
 				do Main.goToLevelMenu();
 			}
+			if (key = 140){
+				do Sys.halt();
+			}
 		}
 		return;
 	}
@@ -53,13 +56,14 @@ class Main {
 				do Screen.clearScreen();
 				do game.start();
 				//конец уровня
-				let key = 0;
-				while (true){
-					let key = Keyboard.keyPressed();
-					if (key = 128){
-						do Main.goToMainMenu();
-					}
-				}
+				do Screen.clearScreen();
+				do UI.drawLevelMenu();
+				do UI.highlightSelectedLevel(selectedLevel);
+				do Sys.wait(250);
+			}
+
+			if (key = 140){
+				do Main.goToMainMenu();
 			}
 		}
 		return;
