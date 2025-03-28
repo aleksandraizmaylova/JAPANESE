@@ -3,7 +3,6 @@ class Game{
 	field Level level;
 	field boolean isWon;
 
-
 	constructor Game new(int levelNumber){
 		let isWon = true;
 		let level = Level.new(levelNumber);
@@ -11,7 +10,6 @@ class Game{
 		let selectedCellY = 0;
 		return this;
 	}
-
 
     method boolean isWon(){
         return isWon;
@@ -54,7 +52,7 @@ class Game{
 
 			//конец
 			if (key = 128){
-				do checkSolution();
+				let isWon = level.isSolutionCorrect();
 				do Screen.clearScreen();
 				if (isWon){
 					do UI.drawWinScreen("it was a jiraf");
@@ -102,21 +100,6 @@ class Game{
 		} else {
 			let sol[selectedCell()] = true;
 			do UI.selectPaintedCell(selectedCellX, selectedCellY);
-		}
-		return;
-	}
-
-	method void checkSolution(){
-		var int i;
-		var Array sol, expectedSol;
-		let i = level.height() * level.width() - 1;
-		let sol = level.solution();
-		let expectedSol = level.expectedSolution();
-		while (i > -1){
-			if (~(sol[i] = expectedSol[i])){
-				let isWon = false;
-			}
-			let i = i - 1;
 		}
 		return;
 	}
