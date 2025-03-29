@@ -1,0 +1,87 @@
+// создает массив интов / булов / массивов интов из строки: один чар - один элемент самого вложенного массива (инты от 0 до 9) (инты на самом деле чары)
+// принимает строки типа "12345" -> [1, 2, 3, 4, 5], "1011" -> [true, false, true, true], "123 12 1" -> [[123], [12], 1]
+class ArrayExtension{
+    field Array array;
+
+    constructor ArrayExtension newIntArray(String str){
+        var int i;
+        let i = str.length() - 1;
+        let array = Array.new(i + 1);
+        while (i > -1){
+            let array[i] = str.charAt(i);
+            let i = i - 1;
+        }
+        do str.dispose();
+        return this;
+    }
+
+    constructor ArrayExtension newTwoDimIntArray(String str){
+        var int i, count, arrayLen, strLen;
+        var String strForInnerArrays;
+        var ArrayExtension arrExt;
+
+        // проходимся по строке, считаем количество элементов (длину будущего массива)
+        let arrayLen = 1;
+        let strLen = str.length();
+        let i = 0;
+        while (i < strLen){
+            if (str.charAt(i) = 32){
+                let arrayLen = arrayLen + 1;
+            }
+            let i = i + 1;
+        }
+        let array = Array.new(arrayLen); // длина - число пробелов + 1
+        
+        // i - счетчик для исходной строки, count - для массива
+        // разбиваем строку по пробелам, если подстрока = 1 символ, просто добавляем в массив
+        // иначе создаем массив обычным конструктором, добавляем его в больший массив
+        let i = 0;
+        let count = 0;
+        while (i < strLen -1){
+            let strForInnerArrays = String.new(15);
+            while ((~(str.charAt(i) = 32)) & (i < strLen)){ // ascii space
+                do strForInnerArrays.appendChar(str.charAt(i));
+                let i = i + 1;
+            }
+            if (strForInnerArrays.length() = 1){
+                let array[count] = strForInnerArrays.charAt(0);
+            } else {
+                let arrExt = ArrayExtension.newIntArray(strForInnerArrays);
+                let array[count] = arrExt.array();
+                do arrExt.dispose();
+            }
+            do strForInnerArrays.dispose();
+            let count = count + 1;
+            let i = i + 1;
+        }
+
+        do str.dispose();
+        return this;
+    }
+
+    constructor ArrayExtension newBooleanArray(String str){
+        var int i;
+        let i = str.length() - 1;
+        let array = Array.new(i + 1);
+        while (i > -1){
+            if (str.charAt(i) = 48){ // ascii 0
+                let array[i] = false;
+            }
+            if (str.charAt(i) = 49) { // ascii 1
+                let array[i] = true;
+            }
+            let i = i - 1;
+        }
+        do str.dispose();
+        return this;
+    }
+
+    method Array array(){
+        return array;
+    }
+
+    method void dispose(){
+        do array.dispose();
+        return;
+    }
+}

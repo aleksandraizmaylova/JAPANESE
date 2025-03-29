@@ -1,19 +1,88 @@
 class Level{
-    field int number, height, width;
+    field int height, width;
     field Array rows, columns, expectedSolution, solution;
 
     constructor Level new(int level){
-        do createFirstLevel();
         if (level = 1){
-            do createFirstLevel();
+            //do createFirstLevel();
+            do createAnyLevelWithArgs(4, 6, "1 6 1 2", "2 1 1 1 3 11", "110001000100010001110101");
         }
         if (level = 2){
-            do createFirstLevel();
+            do createAnyLevelWithArgs(7, 3, "1 3 2 3 1 2 1", "32 6 11", "011101111111100101000");
         }
         if (level = 3){
-            do createFirstLevel();
+            do createAnyLevelWithArgs(9, 7, "3 11 111 21 7 14 2 1 11", "3 4 12 1131 14 51 1", "000111000011110000100011000101011101100011110011111001000010000");
+        }
+        if (level = 4){
+            do createAnyLevelWithArgs(9, 8, "1 7 15 8 4 2 2 1 1", "3 21 3 4 8 6 4 1", "011100000110100000011100000011110000011111111011111100011110000000100000");
+        }
+        if (level = 5){
+            do createAnyLevelWithArgs(13, 13, "3 213 322 321 2122 321 11 321 2122 321 322 213 3", "11 33 1111 1331 33 11311 3223 22 22 22 11 252 33", "0000100010000000111011100000010101010000101110111010111000000011110100111001011110110110111000110001100000110000011000110000000110010000000001001101111101100011100011100");
+        }
+        if (level = 6){
+            do createAnyLevelWithArgs(15, 14, "313 13211 4131 612 2313 412 412 233 621 4121 1331 3131 12 15 6", "33 1221 181 A1 212121 A1 222 1412 222 37 261 141 56 12", "111000000111000101100001101000101111111101000011111111110010110101101011001011111111110001000110011000011010011110001011011000000011011001110001111111011001111110010100011110000100111110011111100100110000000000");
         }
         return this;
+    }
+
+    /*
+    method void createFirstLevel(){ // заполнение рядов и строк реализовано через простой контруктор расширения (скорее всего можно удалить, но пока пусть побудет)
+        var Array arr;
+        var ArrayExtension arrExt;
+        let height = 6;
+        let width = 4;
+
+        let arrExt = ArrayExtension.newIntArray("1612");
+        let columns = arrExt.array();
+        let arrExt = ArrayExtension.newIntArray("211130");
+        let rows = arrExt.array();
+
+        let arrExt = ArrayExtension.newIntArray("11");
+        let arr = arrExt.array();
+        let rows[5] = arr;
+
+        let solution = Array.new(width * height); 
+        let arrExt = ArrayExtension.newBooleanArray("110001000100010001110101");
+        let expectedSolution = arrExt.array();
+        do arrExt.dispose();
+        do arr.dispose();
+        return;
+    }
+    */
+
+    method void createAnyLevelWithArgs(int w, int h, String c, String r, String sol){ // заполнение рядов и строк реализовано через сложный контруктор расширения
+        var ArrayExtension arrExt;
+        let width = w;
+        let height = h;
+
+
+        let arrExt = ArrayExtension.newTwoDimIntArray(c);
+        let columns = arrExt.array();
+
+        let arrExt = ArrayExtension.newTwoDimIntArray(r);
+        let rows = arrExt.array();
+
+        let solution = Array.new(width * height); 
+        let arrExt = ArrayExtension.newBooleanArray(sol);
+        let expectedSolution = arrExt.array();
+
+        do arrExt.dispose();
+        do c.dispose();
+        do r.dispose();
+        do sol.dispose();
+        return;
+    }
+
+    method boolean isSolutionCorrect(){
+        var int i;
+		let i = height * width - 1;
+		while (i > -1){
+			if (~(solution[i] = expectedSolution[i])){
+				return false;
+			}
+			let i = i - 1;
+		}
+		return true;
     }
 
     method Array rows(){
@@ -99,3 +168,63 @@ class Level{
         return;
     }
 }
+
+/*
+1100
+0100
+0100
+0100
+0111
+0101
+
+0111011
+1111110
+0101000
+
+000111000
+011110000
+100011000
+101011101
+100011110
+011111001
+000010000
+
+011100000
+110100000
+011100000
+011110000
+011111111
+011111100
+011110000
+000100000
+
+0000100010000
+0001110111000
+0001010101000
+0101110111010
+1110000000111
+1010011100101
+1110110110111
+0001100011000
+0011000001100
+0110000000110
+0100000000010
+0110111110110
+0011100011100
+
+111000000111000
+101100001101000
+101111111101000
+011111111110010
+110101101011001
+011111111110001
+000110011000011
+010011110001011
+011000000011011
+001110001111111
+011001111110010
+100011110000100
+111110011111100
+100110000000000
+
+*/
