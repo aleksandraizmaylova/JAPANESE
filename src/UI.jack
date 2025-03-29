@@ -49,7 +49,7 @@ class UI {
 		return;
 	}
 
-	function void drawFirstLevelMenu(){
+	function void drawLevelMenu(){
 	// нарисовать меню с выбором всех уровней
 		var int i;
 		let levelBeginRow = 15;
