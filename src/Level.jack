@@ -61,7 +61,7 @@ class Level{
         let rows[4] = 3;
         let row5 = Array.new(2);
         let row5[0] = 1;
-        let row5[0] = 1;
+        let row5[1] = 1;
         let rows[5] = row5;
 
         let solution = Array.new(width * height);

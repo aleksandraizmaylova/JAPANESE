@@ -23,7 +23,7 @@ class Game{
 
 	method void start(){
 		var int key;
-		do UI.drawLevel();
+		do UI.drawLevel(1, level.height(), level.width(), 2, 1);
 		do UI.selectEmptyCell(selectedCellX, selectedCellY);
 		while (true){
 			let key = Keyboard.keyPressed();

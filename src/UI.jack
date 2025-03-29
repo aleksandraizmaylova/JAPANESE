@@ -1,6 +1,8 @@
 class UI {
 
 	static int levelBeginRow, levelBeginCol, levelOffsetCol;
+	static int number, height, width, widthLeftPanel, heightUpPanel;
+	static Array digital;	
 
 	function void clearScreen(){
 	// просто очистка экрана
@@ -86,64 +88,181 @@ class UI {
 	}
 
 	// функции отрисовки уровней
+	function void drawCell(int x, int y, int xsize, int ysize, boolean base1, boolean base2){ 
+	 	do Screen.setColor(base1);
+        do Screen.drawRectangle(x, y, x + xsize, y + ysize);
+	 	do Screen.setColor(base2); 
+        do Screen.drawRectangle(x+1, y+1, x + (xsize-1) , y + (ysize-1));
+        return;
+	}
 
-	function void drawLevel(){ 
-		var int xField, yField, xPosBeg, yPosBeg, xLeftField, yUpField;
-		var int i;
-		let xField = 10;
-		let yField = 10;
-		let xPosBeg = 80;
-		let yPosBeg = 52;
-		let xLeftField = 4;
-		let yUpField = 4;
+	function void drawDigital(int x, int y, int d){
+		var int i, j, pattern, dx, dy, dop;
+		let j = 0;
+		let dy = y;
+		while (j < 11) {
+			let i = 0;
+			let dx = x;
+			let pattern = 128;
+			while (i < 8){
+				do Screen.setColor(true);
+				//let dop = digital[d * j + j] & pattern;
+				if ((digital[d * 11 + j] & pattern) = 0){
+					do Screen.setColor(false);						
+				}
+				do Screen.drawPixel(dx + i, dy + j);				
+				let pattern = pattern / 2;
+				let i = i + 1;
+			}
+			let j = j + 1;
+		}
+		return;
+	}
 
-		do UI.clearScreen();
-		do UI.drawFrame();
-		do Output.moveCursor(7, 9);
-		do Output.printString("3");
-		do Output.moveCursor(8, 9);
-		do Output.printString("3");
+	function void drawLevel(int numberLevel, int heightLevel, int widthLevel, int leftPanel, int UpPanel){ 
+		var int i, j, xStart, yStart, x, y, xsize, ysize;
+		var Array rows, columns;
+		let number = numberLevel; 
+		let height = heightLevel;
+		let width = widthLevel; 
+		let widthLeftPanel = leftPanel;
+		let heightUpPanel = UpPanel; 
 
-		
-		// горизонтальный линии 
+		let rows = Array.new((height + heightUpPanel) * widthLeftPanel);
+        let rows[0] = 32;
+        let rows[1] = 32;
+        let rows[2] = 32;
+        let rows[3] = 32;
+        let rows[4] = 32;
+		let rows[5] = 32;
+		let rows[6] = 49;
+        let rows[7] = 32;
+        let rows[8] = 50;
+        let rows[9] = 49;
+        let rows[10] = 49;
+        let rows[11] = 49;
+		let rows[12] = 51;
+		let rows[13] = 49;
+
+		let columns = Array.new(width + widthLeftPanel);
+        let columns[0] = 32;
+        let columns[1] = 32;
+        let columns[2] = 49;
+        let columns[3] = 54;
+        let columns[4] = 49;
+        let columns[5] = 50;
+
+		let digital = Array.new(33);
+		// 0
+		let digital[0] = 0;
+		let digital[1] = 24;
+		let digital[2] = 60;
+		let digital[3] = 102;
+		let digital[4] = 102;
+		let digital[5] = 102;
+		let digital[6] = 102;
+		let digital[7] = 102;
+		let digital[8] = 60;
+		let digital[9] = 24;
+		let digital[10] = 0;
+
+		// 1
+		let digital[11] = 0;
+		let digital[12] = 24;
+		let digital[13] = 56;
+		let digital[14] = 120;
+		let digital[15] = 24;
+		let digital[16] = 24;
+		let digital[17] = 24;
+		let digital[18] = 24;
+		let digital[19] = 24;
+		let digital[20] = 126;
+		let digital[21] = 0;
+
+		// 2
+		let digital[22] = 0;
+		let digital[23] = 60;
+		let digital[24] = 102;
+		let digital[25] = 102;
+		let digital[26] = 102;
+		let digital[27] = 12;
+		let digital[28] = 24;
+		let digital[29] = 48;
+		let digital[30] = 96;
+		let digital[31] = 126;
+		let digital[32] = 0;
+		// 3
+		// 4
+		// 5
+		// 6
+		// 7
+		// 8
+		// 9
+
+		//do UI.drawFrame();
+  	    do Output.moveCursor(3, 29);
+		do Output.printString("LEVEL ");
+		do Output.printInt(number);
+
+		let xsize = 16;
+		let ysize = 16;
+		let xStart = 232 - ((widthLeftPanel + width) * xsize / 2) - 4;
+		let yStart = 110 - (height / 2);
 		let i = 0;
-		while (i < (yField + 1)) {
-			do Screen.drawLine(xPosBeg - (12 * xLeftField), i * 12 + yPosBeg, xPosBeg, i * 12 + yPosBeg);	
-			if ((i = 0) | (i = 5) | (i = 10)) {
-				do Screen.drawLine(xPosBeg - (12 * xLeftField), i * 12 + yPosBeg + 1, xPosBeg, i * 12 + yPosBeg + 1);				
-			}
+		let j = 0;
+		let x = 0;
+		let y = 0;
+
+		while (j < (height + heightUpPanel)) {
+			let x = i * xsize + xStart;
+			let y = j * ysize + yStart;
+			do UI.drawCell(x, y, xsize, ysize, true, false);	
 			let i = i + 1;
+			if (i  = (width + widthLeftPanel)) {
+				let i = 0;
+				let j = j + 1;
+				let x = 0;
+				let y = 0;				
+			}
 		}
 
-        let i = 0;
-		while (i < (yField + 1)) {
-			do Screen.drawLine(xPosBeg, i * 12 + yPosBeg, 12 * xField + xPosBeg, i * 12 + yPosBeg);	
-			if ((i = 0) | (i = 5) | (i = 10)) {
-				do Screen.drawLine(xPosBeg, i * 12 + yPosBeg + 1, 12 * xField + xLeftField + xPosBeg, i * 12 + yPosBeg + 1);				
-			}
-			let i = i + 1;
-		}
-		
-		
-		// вертикальные линии
+		let y = 110 / 11;
+		//let x = 232 / 8 - 2;
+		let x = (232 - ((widthLeftPanel + width) * xsize / 2)) / 8;
+		let j = 0;
 		let i = 0;
-		while (i < (xLeftField + 1)) {
-			do Screen.drawLine(xPosBeg - (i * 12), yPosBeg, xPosBeg - (i * 12), (12 * yField) + yPosBeg);
-			if (i = xLeftField) {
-				do Screen.drawLine(xPosBeg - (i * 12) + 1, yPosBeg, xPosBeg - (i * 12) + 1, (12 * yField) + yPosBeg);
+		while (j < heightUpPanel) {
+			while (i < (width + widthLeftPanel)) {
+				do Output.moveCursor(y, x);
+				do Output.printChar(columns[i]);
+				let x = x + 2;
+				let i = i + 1;
 			}
-			let i = i + 1;
+			let y = y + 2;
+			let j = j + 1;
+			let x = (232 - ((widthLeftPanel + width) * xsize / 2)) / 8;
+			let i = 0;
 		}
 
-
+		let y = 110;
 		let i = 0;
-		while (i < (xField +  1)) {
-			do Screen.drawLine((i * 12) + xPosBeg, yPosBeg, (i * 12) + xPosBeg, (12 * yField) + yPosBeg);
-			if ((i = 0) | (i = 5) | (i = 10)) {
-				do Screen.drawLine((i * 12) + xPosBeg + 1, yPosBeg, (i * 12) + xPosBeg + 1, (12 * yField) + yPosBeg);
-			}
+		while (i < (height + heightUpPanel)) {
+			//let x = 232 / 8 - 3;
+			let x = 232 - ((widthLeftPanel + width) * xsize / 2);
+			//do Output.moveCursor(y, x);
+			//do Output.printChar(rows[i]);
+			do UI.drawDigital(x, y, 1);
+			let x = x + 16;
+			//do Output.printChar(rows[i + (height + heightUpPanel)]);
+			do UI.drawDigital(x, y, 1);
 			let i = i + 1;
+			let y = y + 16;
 		}
+		do UI.drawDigital(0, 0, 2);
+
+		do Output.moveCursor(0, 2);
+		do Output.printString("2");
+
 		return;
 	}
 
