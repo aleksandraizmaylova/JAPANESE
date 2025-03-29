@@ -1,9 +1,9 @@
 // создает массив интов / булов / массивов интов из строки: один чар - один элемент самого вложенного массива (инты от 0 до 9) (инты на самом деле чары)
-// принимает строки типа "12345" -> [1, 2, 3, 4, 5], "1011" -> [true, false, true, true], "123 12 1" -> [[123], [12], 1]
+// принимает строки типа "12345" -> [1, 2, 3, 4, 5], "1011" -> [true, false, true, true], "123 12 1" -> [[1, 2, 3], [1, 2], 1] или [123, 12, 1]
 class ArrayExtension{
     field Array array;
 
-    constructor ArrayExtension newIntArray(String str){
+    constructor ArrayExtension newIntArray(String str){ // "123121" -> [1, 2, 3, 1, 2, 1]
         var int i;
         let i = str.length() - 1;
         let array = Array.new(i + 1);
@@ -15,7 +15,49 @@ class ArrayExtension{
         return this;
     }
 
-    constructor ArrayExtension newTwoDimIntArray(String str){
+    constructor ArrayExtension newBigIntArray(String str){ // "123 12 1" -> [123, 12, 1]
+        var int i, count, arrayLen, strLen, a;
+        var String strForInts;
+
+        // проходимся по строке, считаем количество элементов (длину будущего массива)
+        let arrayLen = 1;
+        let strLen = str.length();
+        let i = 0;
+        while (i < strLen){
+            if (str.charAt(i) = 32){
+                let arrayLen = arrayLen + 1;
+            }
+            let i = i + 1;
+        }
+        let array = Array.new(arrayLen); // длина - число пробелов + 1
+        
+        // i - счетчик для исходной строки, count - для массива
+        // разбиваем строку по пробелам, добавляем в массив интовое значение
+        let i = 0;
+        let count = 0;
+        let strForInts = String.new(10);
+        while (i < strLen){
+            if (~(str.charAt(i) = 32)){
+                do strForInts.appendChar(str.charAt(i));
+                let i = i + 1;
+            } else {
+                let a = strForInts.intValue();
+                let array[count] = a;
+                let count = count + 1;
+                let i = i + 1;
+                do strForInts.dispose();
+                let strForInts = String.new(10);
+            }
+        }
+
+        let a = strForInts.intValue();
+        let array[count] = a;
+        do strForInts.dispose();
+        do str.dispose();
+        return this;
+    }
+
+    constructor ArrayExtension newTwoDimIntArray(String str){ //"123 12 1" -> [[1, 2, 3], [1, 2], 1]
         var int i, count, arrayLen, strLen;
         var String strForInnerArrays;
         var ArrayExtension arrExt;
