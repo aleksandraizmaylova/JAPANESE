@@ -129,20 +129,21 @@ class UI {
 		let heightUpPanel = UpPanel; 
 
 		let rows = Array.new((height + heightUpPanel) * widthLeftPanel);
-        let rows[0] = 32;
-        let rows[1] = 32;
-        let rows[2] = 32;
-        let rows[3] = 32;
-        let rows[4] = 32;
-		let rows[5] = 32;
-		let rows[6] = 49;
-        let rows[7] = 32;
-        let rows[8] = 50;
-        let rows[9] = 49;
-        let rows[10] = 49;
-        let rows[11] = 49;
-		let rows[12] = 51;
-		let rows[13] = 49;
+		//массив цифр, 10- пробел
+        let rows[0] = 10;
+        let rows[1] = 10;
+        let rows[2] = 10;
+        let rows[3] = 10;
+        let rows[4] = 10;
+		let rows[5] = 10;
+		let rows[6] = 1;
+        let rows[7] = 10;
+        let rows[8] = 2;
+        let rows[9] = 1;
+        let rows[10] = 1;
+        let rows[11] = 1;
+		let rows[12] = 3;
+		let rows[13] = 1;
 
 		let columns = Array.new(width + widthLeftPanel);
         let columns[0] = 32;
@@ -152,7 +153,7 @@ class UI {
         let columns[4] = 49;
         let columns[5] = 50;
 
-		let digital = Array.new(33);
+		let digital = Array.new(121);
 		// 0
 		let digital[0] = 0;
 		let digital[1] = 24;
@@ -183,8 +184,8 @@ class UI {
 		let digital[22] = 0;
 		let digital[23] = 60;
 		let digital[24] = 102;
-		let digital[25] = 102;
-		let digital[26] = 102;
+		let digital[25] = 6;
+		let digital[26] = 6;
 		let digital[27] = 12;
 		let digital[28] = 24;
 		let digital[29] = 48;
@@ -192,12 +193,102 @@ class UI {
 		let digital[31] = 126;
 		let digital[32] = 0;
 		// 3
+		let digital[33] = 0;
+		let digital[34] = 60;
+		let digital[35] = 102;
+		let digital[36] = 102;
+		let digital[37] = 12;
+		let digital[38] = 28;
+		let digital[39] = 6;
+		let digital[40] = 6;
+		let digital[41] = 102;
+		let digital[42] = 102;
+		let digital[43] = 60;
 		// 4
+		let digital[44] = 0;
+		let digital[45] = 14;
+		let digital[46] = 14;
+		let digital[47] = 22;
+		let digital[48] = 22;
+		let digital[49] = 38;
+		let digital[50] = 38;
+		let digital[51] = 70;
+		let digital[52] = 127;
+		let digital[53] = 6;
+		let digital[54] = 6;
 		// 5
+		let digital[55] = 0;
+		let digital[56] = 62;
+		let digital[57] = 96;
+		let digital[58] = 96;
+		let digital[59] = 124;
+		let digital[60] = 6;
+		let digital[61] = 6;
+		let digital[62] = 6;
+		let digital[63] = 102;
+		let digital[64] = 102;
+		let digital[65] = 60;
 		// 6
+		let digital[66] = 0;
+		let digital[67] = 60;
+		let digital[68] = 96;
+		let digital[69] = 96;
+		let digital[70] = 96;
+		let digital[71] = 124;
+		let digital[72] = 102;
+		let digital[73] = 102;
+		let digital[74] = 102;
+		let digital[75] = 102;
+		let digital[76] = 60;
 		// 7
+		let digital[77] = 0;
+		let digital[78] = 126;
+		let digital[79] = 6;
+		let digital[80] = 6;
+		let digital[81] = 12;
+		let digital[82] = 12;
+		let digital[83] = 24;
+		let digital[84] = 24;
+		let digital[85] = 48;
+		let digital[86] = 48;
+		let digital[87] = 48;
 		// 8
+		let digital[88] = 0;
+		let digital[89] = 60;
+		let digital[90] = 102;
+		let digital[91] = 102;
+		let digital[92] = 102;
+		let digital[93] = 60;
+		let digital[94] = 102;
+		let digital[95] = 102;
+		let digital[96] = 102;
+		let digital[97] = 102;
+		let digital[98] = 60;
 		// 9
+		// let digital[99] = 0;
+		// let digital[100] = ;
+		// let digital[101] = ;
+		// let digital[102] = ;
+		// let digital[103] = ;
+		// let digital[104] = ;
+		// let digital[105] = ;
+		// let digital[106] = ;
+		// let digital[107] = ;
+		// let digital[108] = ;
+		// let digital[109] = ;
+		// пробел
+		let digital[110] = 0;
+		let digital[111] = 0;
+		let digital[112] = 0;
+		let digital[113] = 0;
+		let digital[114] = 0;
+		let digital[115] = 0;
+		let digital[116] = 0;
+		let digital[117] = 0;
+		let digital[118] = 0;
+		let digital[119] = 0;
+		let digital[120] = 0;
+
 
 		//do UI.drawFrame();
   	    do Output.moveCursor(3, 29);
@@ -251,7 +342,7 @@ class UI {
 			let x = 232 - ((widthLeftPanel + width) * xsize / 2);
 			//do Output.moveCursor(y, x);
 			//do Output.printChar(rows[i]);
-			do UI.drawDigital(x, y, 1);
+			do UI.drawDigital(x, y, rows[i]);
 			let x = x + 16;
 			//do Output.printChar(rows[i + (height + heightUpPanel)]);
 			do UI.drawDigital(x, y, 1);
