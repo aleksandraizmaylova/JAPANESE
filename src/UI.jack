@@ -1,6 +1,6 @@
 class UI {
 
-	static int levelBeginRow, levelBeginCol, levelOffsetCol;
+	static int levelBeginRow, levelBeginCol, levelOffsetCol, xbind, ybind;
 	static int number, height, width, widthLeftPanel, heightUpPanel;
 	static Array digital;	
 
@@ -88,14 +88,50 @@ class UI {
 	}
 
 	// функции отрисовки уровней
-	function void drawCell(int x, int y, int xsize, int ysize, boolean base1, boolean base2){ 
-	 	do Screen.setColor(base1);
+	// рисуем квадрат в квадрате разных цветов, чтобы была окантовка
+	function void drawCell(int x, int dx, int y, ind dy, int xsize, int ysize, boolean base1, boolean base2, int type){ 
+	 	var int x1, y1, x2, y2;
+		do Screen.setColor(base1);
         do Screen.drawRectangle(x, y, x + xsize, y + ysize);
 	 	do Screen.setColor(base2); 
-        do Screen.drawRectangle(x+1, y+1, x + (xsize-1) , y + (ysize-1));
+		let x1 = x + dx;
+		let y1 = y + dy;
+		let x2 = x + xsize - dx;
+		let y2 = y + ysize - dy;
+		if (type = 1) {
+        	let y2 = y2 - dy;
+		}
+		if (type = 2) {
+        	let x1 = x1 + dx;
+		}
+		if (type = 3) {
+        	let y1 = y1 + dy;		
+		}
+		if (type = 4) {
+        	let x2 = x2 - dx;
+		}
+		if (type = 5) {
+        	let x1 = x1 + dx;
+			let y1 = y1 + dy;
+		}
+		if (type = 6) {
+			let y2 = y2 - dy;
+			let x1 = x1 + dx;
+		}
+		if (type = 7) {
+			let y1 = y1 + dy;
+			let x2 = x2 - dx;
+		}
+		if (type = 8) {
+			let x2 = x2 - dx;
+			let y2 = y2 - dy;
+		}
+
+		do Screen.drawRectangle(x1, y1, x2, y2);
         return;
 	}
 
+	// печатаем свои символы
 	function void drawDigital(int x, int y, int d){
 		var int i, j, pattern, dx, dy, dop;
 		let j = 0;
@@ -106,7 +142,6 @@ class UI {
 			let pattern = 128;
 			while (i < 8){
 				do Screen.setColor(true);
-				//let dop = digital[d * j + j] & pattern;
 				if ((digital[d * 11 + j] & pattern) = 0){
 					do Screen.setColor(false);						
 				}
@@ -119,39 +154,38 @@ class UI {
 		return;
 	}
 
-	function void drawLevel(int numberLevel, int heightLevel, int widthLevel, int leftPanel, int UpPanel){ 
-		var int i, j, xStart, yStart, x, y, xsize, ysize;
-		var Array rows, columns;
+	function void drawLevel(int numberLevel, int heightLevel, int widthLevel, int leftPanel, int UpPanel, Array rows, Array columns){ 
+		var int i, j, xStart, yStart, x, y, xsize, ysize, type;
 		let number = numberLevel; 
 		let height = heightLevel;
 		let width = widthLevel; 
 		let widthLeftPanel = leftPanel;
 		let heightUpPanel = UpPanel; 
 
-		let rows = Array.new((height + heightUpPanel) * widthLeftPanel);
+		//let rows = Array.new((height + heightUpPanel) * widthLeftPanel);
 		//массив цифр, 10- пробел
-        let rows[0] = 10;
-        let rows[1] = 10;
-        let rows[2] = 10;
-        let rows[3] = 10;
-        let rows[4] = 10;
-		let rows[5] = 10;
-		let rows[6] = 1;
-        let rows[7] = 10;
-        let rows[8] = 2;
-        let rows[9] = 1;
-        let rows[10] = 1;
-        let rows[11] = 1;
-		let rows[12] = 3;
-		let rows[13] = 1;
+        // let rows[0] = 10;
+        // let rows[1] = 10;
+        // let rows[2] = 10;
+        // let rows[3] = 10;
+        // let rows[4] = 10;
+		// let rows[5] = 10;
+		// let rows[6] = 1;
+        // let rows[7] = 10;
+        // let rows[8] = 2;
+        // let rows[9] = 1;
+        // let rows[10] = 1;
+        // let rows[11] = 1;
+		// let rows[12] = 3;
+		// let rows[13] = 1;
 
-		let columns = Array.new(width + widthLeftPanel);
-        let columns[0] = 32;
-        let columns[1] = 32;
-        let columns[2] = 49;
-        let columns[3] = 54;
-        let columns[4] = 49;
-        let columns[5] = 50;
+		// let columns = Array.new(width + widthLeftPanel);
+        // let columns[0] = 32;
+        // let columns[1] = 32;
+        // let columns[2] = 49;
+        // let columns[3] = 54;
+        // let columns[4] = 49;
+        // let columns[5] = 50;
 
 		let digital = Array.new(121);
 		// 0
@@ -166,7 +200,6 @@ class UI {
 		let digital[8] = 60;
 		let digital[9] = 24;
 		let digital[10] = 0;
-
 		// 1
 		let digital[11] = 0;
 		let digital[12] = 24;
@@ -179,7 +212,6 @@ class UI {
 		let digital[19] = 24;
 		let digital[20] = 126;
 		let digital[21] = 0;
-
 		// 2
 		let digital[22] = 0;
 		let digital[23] = 60;
@@ -265,17 +297,17 @@ class UI {
 		let digital[97] = 102;
 		let digital[98] = 60;
 		// 9
-		// let digital[99] = 0;
-		// let digital[100] = ;
-		// let digital[101] = ;
-		// let digital[102] = ;
-		// let digital[103] = ;
-		// let digital[104] = ;
-		// let digital[105] = ;
-		// let digital[106] = ;
-		// let digital[107] = ;
-		// let digital[108] = ;
-		// let digital[109] = ;
+		let digital[99] = 0;
+		let digital[100] = 60;
+		let digital[101] = 102;
+		let digital[102] = 102;
+		let digital[103] = 102;
+		let digital[104] = 110;
+		let digital[105] = 54;
+		let digital[106] = 6;
+		let digital[107] = 6;
+		let digital[108] = 12;
+		let digital[109] = 48;
 		// пробел
 		let digital[110] = 0;
 		let digital[111] = 0;
@@ -290,24 +322,68 @@ class UI {
 		let digital[120] = 0;
 
 
-		//do UI.drawFrame();
-  	    do Output.moveCursor(3, 29);
+		do UI.drawFrame();
+  	    do Output.moveCursor(1, 29);
 		do Output.printString("LEVEL ");
 		do Output.printInt(number);
-
+		// размеры клетки
 		let xsize = 16;
 		let ysize = 16;
-		let xStart = 232 - ((widthLeftPanel + width) * xsize / 2) - 4;
-		let yStart = 110 - (height / 2);
+		// привязка общей сетки к Screen
+		let i = (256 - ((widthLeftPanel + width) * xsize / 2)) / 8;
+		let xbind = i * 8;
+		let i = (128 - ((height + heightUpPanel) * ysize / 2)) / 11;
+		let ybind = i * 11;
+
+		let xStart = xbind - 4;
+		let yStart = ybind - 2;
 		let i = 0;
 		let j = 0;
 		let x = 0;
 		let y = 0;
-
+		// печатаем ячейки
 		while (j < (height + heightUpPanel)) {
 			let x = i * xsize + xStart;
 			let y = j * ysize + yStart;
-			do UI.drawCell(x, y, xsize, ysize, true, false);	
+			let type = 0;
+			// двойная нижняя
+			if (j = (height + heightUpPanel - 1)) {
+				let type = 1;
+			}
+			// двойная левая
+			if (i = 0) {
+				let type = 2;
+			}
+			// двойная верхняя
+			if (j = 0) {
+				let type = 3;
+			}
+			// двойная правая
+			if (i = (width + widthLeftPanel - 1)) {
+				let type = 4;
+			}
+			// левый верхний угол
+			if ((i = 0) & (j = 0)) {
+				let type = 5;
+			}
+			// левый нижний угол
+			if ((i = 0) & (j = (height + heightUpPanel - 1))) {
+				let type = 6;
+			}
+			// правый верхний угол
+			if ((i = (width + widthLeftPanel - 1)) & (j = 0)) {
+				let type = 7;
+			}
+			// правый нижний угол
+			if ((i = (width + widthLeftPanel - 1)) & (j = (height + heightUpPanel - 1))) {
+				let type = 8;
+			}
+
+			//if (i = (width + widthLeftPanel) - 1) {
+			//	let type = 1;
+			//}
+
+			do UI.drawCell(x, 1, y, 1, xsize, ysize, true, false, type);	
 			let i = i + 1;
 			if (i  = (width + widthLeftPanel)) {
 				let i = 0;
@@ -316,44 +392,52 @@ class UI {
 				let y = 0;				
 			}
 		}
-
-		let y = 110 / 11;
-		//let x = 232 / 8 - 2;
-		let x = (232 - ((widthLeftPanel + width) * xsize / 2)) / 8;
-		let j = 0;
+		// печатаем символы верхней панели (массив columns)
+		//let y = ybind / 11;
+		//let j = 0;
+		//while (j < heightUpPanel) {
+		//	let x = xbind / 8;
+		//	let i = 0;
+		//	while (i < (width + widthLeftPanel)) {
+		//		do Output.moveCursor(y, x);
+		//		do Output.printChar(columns[i + ((width + widthLeftPanel) * j)]);
+		//		let x = x + 2;
+		//		let i = i + 1;
+		//	}
+		//	let y = y + 1;
+		//	let j = j + 1;
+		//}
+		
+		let y = ybind;
 		let i = 0;
-		while (j < heightUpPanel) {
-			while (i < (width + widthLeftPanel)) {
-				do Output.moveCursor(y, x);
-				do Output.printChar(columns[i]);
-				let x = x + 2;
-				let i = i + 1;
+		while (i < (heightUpPanel)) {
+			let x = xbind;
+			let j = 0;
+			while (j < (width + widthLeftPanel)) {
+				//do UI.drawDigital(x, y, columns[i + ((width + widthLeftPanel) * j)]);
+				do UI.drawDigital(x, y, 6);
+				let x = x + 16;
+				let j = j + 1;
 			}
-			let y = y + 2;
-			let j = j + 1;
-			let x = (232 - ((widthLeftPanel + width) * xsize / 2)) / 8;
-			let i = 0;
-		}
-
-		let y = 110;
-		let i = 0;
-		while (i < (height + heightUpPanel)) {
-			//let x = 232 / 8 - 3;
-			let x = 232 - ((widthLeftPanel + width) * xsize / 2);
-			//do Output.moveCursor(y, x);
-			//do Output.printChar(rows[i]);
-			do UI.drawDigital(x, y, rows[i]);
-			let x = x + 16;
-			//do Output.printChar(rows[i + (height + heightUpPanel)]);
-			do UI.drawDigital(x, y, 1);
 			let i = i + 1;
 			let y = y + 16;
 		}
-		do UI.drawDigital(0, 0, 2);
 
-		do Output.moveCursor(0, 2);
-		do Output.printString("2");
 
+		// печатаем символы левой панели (массив rows)
+		let y = ybind;
+		let i = 0;
+		while (i < (height + heightUpPanel)) {
+			let x = xbind;
+			let j = 0;
+			while (j < widthLeftPanel) {
+				do UI.drawDigital(x, y, rows[i + ((height + heightUpPanel) * j)]);
+				let x = x + 16;
+				let j = j + 1;
+			}
+			let i = i + 1;
+			let y = y + 16;
+		}
 		return;
 	}
 

@@ -21,7 +21,7 @@ class Game{
 
 	method void start(){
 		var int key;
-		do UI.drawLevel(1, level.height(), level.width(), 2, 1);
+		do UI.drawLevel(level.number(), level.height(), level.width(), level.leftPanel(), level.UpPanel(), level.rows(), level.columns());
 		do UI.selectEmptyCell(selectedCellX, selectedCellY);
 		do Sys.wait(250);
 		while (true){
