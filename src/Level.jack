@@ -1,60 +1,34 @@
 class Level{
-    field int height, width;
+    field int number, height, width;
     field Array rows, columns, expectedSolution, solution;
 
     constructor Level new(int level){
         if (level = 1){
-            //do createFirstLevel();
-            do createAnyLevelWithArgs(4, 6, "1 6 1 2", "2 1 1 1 3 11", "110001000100010001110101");
+            do createAnyLevelWithArgs(1, 4, 6, "1 6 1 2", "2 1 1 1 3 11", "110001000100010001110101");
         }
         if (level = 2){
-            do createAnyLevelWithArgs(7, 3, "1 3 2 3 1 2 1", "32 6 11", "011101111111100101000");
+            do createAnyLevelWithArgs(2, 7, 3, "1 3 2 3 1 2 1", "32 6 11", "011101111111100101000");
         }
         if (level = 3){
-            do createAnyLevelWithArgs(9, 7, "3 11 111 21 7 14 2 1 11", "3 4 12 1131 14 51 1", "000111000011110000100011000101011101100011110011111001000010000");
+            do createAnyLevelWithArgs(3, 9, 7, "3 11 111 21 7 14 2 1 11", "3 4 12 1131 14 51 1", "000111000011110000100011000101011101100011110011111001000010000");
         }
         if (level = 4){
-            do createAnyLevelWithArgs(9, 8, "1 7 15 8 4 2 2 1 1", "3 21 3 4 8 6 4 1", "011100000110100000011100000011110000011111111011111100011110000000100000");
+            do createAnyLevelWithArgs(4, 9, 8, "1 7 15 8 4 2 2 1 1", "3 21 3 4 8 6 4 1", "011100000110100000011100000011110000011111111011111100011110000000100000");
         }
         if (level = 5){
-            do createAnyLevelWithArgs(13, 13, "3 213 322 321 2122 321 11 321 2122 321 322 213 3", "11 33 1111 1331 33 11311 3223 22 22 22 11 252 33", "0000100010000000111011100000010101010000101110111010111000000011110100111001011110110110111000110001100000110000011000110000000110010000000001001101111101100011100011100");
+            do createAnyLevelWithArgs(5, 13, 13, "3 213 322 321 2122 321 11 321 2122 321 322 213 3", "11 33 1111 1331 33 11311 3223 22 22 22 11 252 33", "0000100010000000111011100000010101010000101110111010111000000011110100111001011110110110111000110001100000110000011000110000000110010000000001001101111101100011100011100");
         }
         if (level = 6){
-            do createAnyLevelWithArgs(15, 14, "313 13211 4131 612 2313 412 412 233 621 4121 1331 3131 12 15 6", "33 1221 181 A1 212121 A1 222 1412 222 37 261 141 56 12", "111000000111000101100001101000101111111101000011111111110010110101101011001011111111110001000110011000011010011110001011011000000011011001110001111111011001111110010100011110000100111110011111100100110000000000");
+            do createAnyLevelWithArgs(6, 15, 14, "313 13211 4131 612 2313 412 412 233 621 4121 1331 3131 12 15 6", "33 1221 181 A1 212121 A1 222 1412 222 37 261 141 56 12", "111000000111000101100001101000101111111101000011111111110010110101101011001011111111110001000110011000011010011110001011011000000011011001110001111111011001111110010100011110000100111110011111100100110000000000");
         }
         return this;
     }
 
-    /*
-    method void createFirstLevel(){ // заполнение рядов и строк реализовано через простой контруктор расширения (скорее всего можно удалить, но пока пусть побудет)
-        var Array arr;
+    method void createAnyLevelWithArgs(int num, int w, int h, String c, String r, String sol){ // заполнение рядов и строк реализовано через сложный контруктор расширения
         var ArrayExtension arrExt;
-        let height = 6;
-        let width = 4;
-
-        let arrExt = ArrayExtension.newIntArray("1612");
-        let columns = arrExt.array();
-        let arrExt = ArrayExtension.newIntArray("211130");
-        let rows = arrExt.array();
-
-        let arrExt = ArrayExtension.newIntArray("11");
-        let arr = arrExt.array();
-        let rows[5] = arr;
-
-        let solution = Array.new(width * height); 
-        let arrExt = ArrayExtension.newBooleanArray("110001000100010001110101");
-        let expectedSolution = arrExt.array();
-        do arrExt.dispose();
-        do arr.dispose();
-        return;
-    }
-    */
-
-    method void createAnyLevelWithArgs(int w, int h, String c, String r, String sol){ // заполнение рядов и строк реализовано через сложный контруктор расширения
-        var ArrayExtension arrExt;
+        let number = num;
         let width = w;
         let height = h;
-
 
         let arrExt = ArrayExtension.newTwoDimIntArray(c);
         let columns = arrExt.array();
@@ -93,6 +67,10 @@ class Level{
         return columns;
     }
 
+    method int number(){
+        return number;
+    }
+
     method int height(){
         return height;
     }
@@ -107,59 +85,6 @@ class Level{
 
     method Array expectedSolution(){
         return expectedSolution;
-    }
-
-    method void createFirstLevel(){
-        var Array row5;
-
-        let number = 1;
-        let height = 6;
-        let width = 4;
-
-        let columns = Array.new(width);
-        let columns[0] = 1;
-        let columns[1] = 6;
-        let columns[2] = 1;
-        let columns[3] = 2;
-
-        let rows = Array.new(height);
-        let rows[0] = 2;
-        let rows[1] = 1;
-        let rows[2] = 1;
-        let rows[3] = 1;
-        let rows[4] = 3;
-        let row5 = Array.new(2);
-        let row5[0] = 1;
-        let row5[1] = 1;
-        let rows[5] = row5;
-
-        let solution = Array.new(width * height);
-        let expectedSolution = Array.new(width * height);
-        let expectedSolution[0] = true;
-        let expectedSolution[1] = true;
-        let expectedSolution[2] = false;
-        let expectedSolution[3] = false;
-        let expectedSolution[4] = false;
-        let expectedSolution[5] = true;
-        let expectedSolution[6] = false;
-        let expectedSolution[7] = false;
-        let expectedSolution[8] = false;
-        let expectedSolution[9] = true;
-        let expectedSolution[10] = false;
-        let expectedSolution[11] = false;
-        let expectedSolution[12] = false;
-        let expectedSolution[13] = true;
-        let expectedSolution[14] = false;
-        let expectedSolution[15] = false;
-        let expectedSolution[16] = false;
-        let expectedSolution[17] = true;
-        let expectedSolution[18] = true;
-        let expectedSolution[19] = true;
-        let expectedSolution[20] = false;
-        let expectedSolution[21] = true;
-        let expectedSolution[22] = false;
-        let expectedSolution[23] = true;
-        return;
     }
 
     method void dispose(){
