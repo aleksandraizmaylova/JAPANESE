@@ -31,14 +31,23 @@
 
 #### Скриныыыы
 1. Визуальная часть - услада  для глаз
-![[стартовый экран.png]] 
-![[менюУровни.png]]
-![[сердечко.png]]
+
+![стартовый экран](https://github.com/DiOsa1317/JAPANESE/blob/main/reviewOsipova/%D0%BA%D0%BE%D0%BD%D0%B5%D1%86%D0%A3%D1%80%D0%BE%D0%B2%D0%BD%D1%8F%D0%9D%D0%B5%D0%97%D0%B4%D0%B5%D1%81%D1%8C.png)
+![менюУровни](https://github.com/DiOsa1317/JAPANESE/blob/main/reviewOsipova/%D0%BC%D0%B5%D0%BD%D1%8E%D0%A3%D1%80%D0%BE%D0%B2%D0%BD%D0%B8.png)
+![сердечко.png](https://github.com/DiOsa1317/JAPANESE/blob/main/reviewOsipova/%D1%81%D0%B5%D1%80%D0%B4%D0%B5%D1%87%D0%BA%D0%BE.png)
+
 2. мы упали
-![[мы упали.png]]
+
+![мы упали](https://github.com/DiOsa1317/JAPANESE/blob/main/reviewOsipova/%D0%BC%D1%8B%20%D1%83%D0%BF%D0%B0%D0%BB%D0%B8.png)
+
 3. Страшная ёлочка
-![[страшная ёлочка.png]]
+   
+![страшная ёлочка](https://github.com/DiOsa1317/JAPANESE/blob/main/reviewOsipova/%D1%81%D1%82%D1%80%D0%B0%D1%88%D0%BD%D0%B0%D1%8F%20%D1%91%D0%BB%D0%BE%D1%87%D0%BA%D0%B0.png)
+
 4. 0% осуждения 100% понимания
-![[хе-хе.png]]
+   
+![хе-хе](https://github.com/DiOsa1317/JAPANESE/blob/main/reviewOsipova/%D1%85%D0%B5-%D1%85%D0%B5.png)
+
 5. А мы когда-то выполняем то, что после 58 строчки? (класс Main)
-![[конецУровняНеЗдесь.png]]
+
+![конецУровняНеЗдесь](https://github.com/DiOsa1317/JAPANESE/blob/main/reviewOsipova/%D0%BA%D0%BE%D0%BD%D0%B5%D1%86%D0%A3%D1%80%D0%BE%D0%B2%D0%BD%D1%8F%D0%9D%D0%B5%D0%97%D0%B4%D0%B5%D1%81%D1%8C.png)
