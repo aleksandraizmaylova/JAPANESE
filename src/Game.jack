@@ -80,7 +80,7 @@ class Game{
 	method void move(int deltaX, int deltaY){
 		var Array sol;
 		let sol = level.solution();
-		if (sol[selectedCell()]){
+		if (sol[selectedCell()] = true){
 			do UI.paintCell(selectedCellX, selectedCellY);
 		} else {
 			do UI.clearCell(selectedCellX, selectedCellY);
@@ -93,7 +93,7 @@ class Game{
 			let selectedCellY = selectedCellY + deltaY;
 		}
 		
-		if (sol[selectedCell()]){
+		if (sol[selectedCell()] = true){
 			do UI.selectPaintedCell(selectedCellX, selectedCellY);
 		} else {
 			do UI.selectEmptyCell(selectedCellX, selectedCellY);
@@ -104,7 +104,7 @@ class Game{
 	method void paintOrEraseCell(){
 		var Array sol;
 		let sol = level.solution();
-		if (sol[selectedCell()]){
+		if (sol[selectedCell()] = true){
 			let sol[selectedCell()] = false;
 			do UI.selectEmptyCell(selectedCellX, selectedCellY);
 		} else {
