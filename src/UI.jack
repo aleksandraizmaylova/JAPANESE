@@ -301,6 +301,7 @@ class UI {
 				let y = 0;				
 			}
 		}
+		// выделение игрового поля
 		do Screen.setColor(true);
 		do Screen.drawLine(xbind, (heightUpPanel * ysize) + ybind - 1, (width + widthLeftPanel) * xsize + xbind, (heightUpPanel * ysize) + ybind - 1);
 		do Screen.drawLine((widthLeftPanel * xsize) + xbind - 1, ybind, (widthLeftPanel * xsize) + xbind - 1, ((height + heightUpPanel) * ysize) + ybind);
@@ -312,13 +313,29 @@ class UI {
 			let x = xbind + 4;
 			let j = 0;
 			while (j < (width + widthLeftPanel)) {
-				do UI.drawDigital(x, y, columns[i * (width + widthLeftPanel) + j]);
+				if ((columns[i * (width + widthLeftPanel) + j] > -1) & (columns[i * (width + widthLeftPanel) + j] < 11)) {
+					do UI.drawDigital(x, y, columns[i * (width + widthLeftPanel) + j]);
+				}
 				let x = x + 16;
 				let j = j + 1;
 			}
 			let i = i + 1;
 			let y = y + 16;
 		}
+
+		//do Screen.setColor(true);
+		//let i = 0;
+		//do Output.moveCursor(2, 4);
+		//while (i < 12) {		
+		//	if (rows[i] = 10) { 
+		//		do Output.printString("*");
+		//	}
+		//	else {
+		//	   	do Output.printInt(rows[i] + 48); 
+		//	}
+		//	let i = i + 1;
+		//	do Output.printString(" ");
+		//}
 
 		// печатаем символы левой панели (массив rows)
 		let y = ybind + 3 + (heightUpPanel * ysize);
@@ -327,7 +344,9 @@ class UI {
 			let x = xbind + 4;
 			let j = 0;
 			while (j < widthLeftPanel) {
-				do UI.drawDigital(x, y, rows[i + (height * j)]);
+				if ((rows[i + (height * j)] < 11) & (rows[i + (height * j)] > -1)) {
+					do UI.drawDigital(x, y, rows[i + (height * j)]);
+				}
 				let x = x + 16;
 				let j = j + 1;
 			}
@@ -352,10 +371,6 @@ class UI {
 		var int x1, y1;
 		let x1 = xbind + ((widthLeftPanel + x) * xsize);
 		let y1 = ybind + ((heightUpPanel + y) * ysize);
-		do Output.moveCursor(18, 3);
-		do Output.printInt(x);
-		do Output.printInt(y);
-
 		do UI.drawCell(x1, 3, y1, 3, xsize, ysize, true, false, 0);
 		return;
 	}
@@ -365,11 +380,6 @@ class UI {
 		var int x1, y1;
 		let x1 = xbind + ((widthLeftPanel + x) * xsize);
 		let y1 = ybind + ((heightUpPanel + y) * ysize);
-
-		do Output.moveCursor(19, 3);
-		do Output.printInt(x);
-		do Output.printInt(y);
-
 		do UI.drawCell(x1, 3, y1, 3, xsize, ysize, false, true, 0);
 		return;
 	}
@@ -379,10 +389,6 @@ class UI {
 		var int x1, y1;
 		let x1 = xbind + ((widthLeftPanel + x) * xsize);
 		let y1 = ybind + ((heightUpPanel + y) * ysize);
-		do Output.moveCursor(20, 3);
-		do Output.printInt(x);
-		do Output.printInt(y);
-
 		do UI.drawCell(x1, 1, y1, 1, xsize, ysize, true, false, 0);
 		return;
 	}
@@ -391,10 +397,6 @@ class UI {
 		var int x1, y1;
 		let x1 = xbind + ((widthLeftPanel + x) * xsize);
 		let y1 = ybind + ((heightUpPanel + y) * ysize);
-		do Output.moveCursor(21, 3);
-		do Output.printInt(x);
-		do Output.printInt(y);
-		
 		do UI.drawCell(x1, 1, y1, 1, xsize, ysize, false, true, 0);
 		return;
 	}
