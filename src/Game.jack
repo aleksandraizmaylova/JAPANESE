@@ -27,35 +27,35 @@ class Game{
 		while (true){
 			let key = Keyboard.keyPressed();
 			// перемещение по "полю"
-			if (key = 132){//right
+			if (key = 132){ // ascii right
 				do move(1, 0);
 				do Sys.wait(250);
 			}
-			if (key = 130){//left
+			if (key = 130){ // ascii left
 				do move(-1, 0);
 				do Sys.wait(250);
 			}
-			if (key = 131){//up
+			if (key = 131){ // ascii up
 				do move(0, -1);
 				do Sys.wait(250);
 			}
-			if (key = 133){//down
+			if (key = 133){ // ascii down
 				do move(0, 1);
 				do Sys.wait(250);
 			}
 
 			//закрашивание/отбеливание клетки
-			if (key = 32){
+			if (key = 32){ // ascii space
 				do paintOrEraseCell();
 				do Sys.wait(250);
 			}
 
 			//конец
-			if (key = 128){
+			if (key = 128){ // ascii enter
 				let isWon = level.isSolutionCorrect();
 				do Screen.clearScreen();
 				if (isWon){
-					do UI.drawWinScreen("it was a jiraf");
+					do UI.drawWinScreen();
 				} else {
 					do UI.drawLoseScreen();
 				}
@@ -69,7 +69,8 @@ class Game{
 				}
 			}
 
-			if (key = 140){
+			//выход
+			if (key = 140){ // ascii esc
 				do Screen.clearScreen();
 				return;
 			}
