@@ -269,14 +269,21 @@ class UI {
 		let digital[119] = 0;
 		let digital[120] = 0;
 
-		do UI.drawFrame(5, 5, 506, 250, 2);
-  	    do Output.moveCursor(1, 29);
+		do UI.drawFrame(1, 1, 510, 255, 2);
+  	    let i = 29;
+		// размеры клетки		
+		let xsize = 16;
+		let ysize = 16;
+		if (number > 4) {
+			let xsize = 16 - 2;
+			let ysize = 16 - 2;
+			let i = 4;
+
+		}
+		do Output.moveCursor(1, i);
 		do Output.printString("LEVEL ");
 		do Output.printInt(number);
 
-		// размеры клетки
-		let xsize = 16;
-		let ysize = 16;
 		// привязка общей сетки к Screen
 		let xbind = 256 - ((widthLeftPanel + width) * xsize / 2);
 		let ybind = 128 - ((height + heightUpPanel) * ysize / 2);
@@ -316,26 +323,12 @@ class UI {
 				if ((columns[i * (width + widthLeftPanel) + j] > -1) & (columns[i * (width + widthLeftPanel) + j] < 11)) {
 					do UI.drawDigital(x, y, columns[i * (width + widthLeftPanel) + j]);
 				}
-				let x = x + 16;
+				let x = x + xsize;
 				let j = j + 1;
 			}
 			let i = i + 1;
-			let y = y + 16;
+			let y = y + ysize;
 		}
-
-		//do Screen.setColor(true);
-		//let i = 0;
-		//do Output.moveCursor(2, 4);
-		//while (i < 12) {		
-		//	if (rows[i] = 10) { 
-		//		do Output.printString("*");
-		//	}
-		//	else {
-		//	   	do Output.printInt(rows[i] + 48); 
-		//	}
-		//	let i = i + 1;
-		//	do Output.printString(" ");
-		//}
 
 		// печатаем символы левой панели (массив rows)
 		let y = ybind + 3 + (heightUpPanel * ysize);
@@ -347,7 +340,7 @@ class UI {
 				if ((rows[i + (height * j)] < 11) & (rows[i + (height * j)] > -1)) {
 					do UI.drawDigital(x, y, rows[i + (height * j)]);
 				}
-				let x = x + 16;
+				let x = x + xsize;
 				let j = j + 1;
 			}
 			let i = i + 1;
@@ -401,15 +394,23 @@ class UI {
 		return;
 	}
 
-	function void drawWinScreen(String str){
+	function void drawWinScreen(){
 	// нарисовать экран при победе
-	// например надпись "you won"
-	// можно добавить слова с пояснение к картинке: "It was ..." (... передавать в метод, чтобы фраза отличалась в зависимости от уровня)
-	return;
+		do UI.drawFrame(5, 5, 506, 250, 2);
+		do Output.moveCursor(8, 24);
+		do Output.printString("J A P A N E S E");
+		do Output.moveCursor(10, 20);
+		do Output.printString("YOU WON");
+		return;
 	}
+
 	function void drawLoseScreen(){
-	// нарисовать экран при победе
-	// например надпись "you lose"
-	return;
+	// нарисовать экран при проигрыше
+		do UI.drawFrame(5, 5, 506, 250, 2);
+		do Output.moveCursor(8, 24);
+		do Output.printString("J A P A N E S E");
+		do Output.moveCursor(15, 27);
+		do Output.printString("YOU LOSE");
+		return;
 	}
 }
