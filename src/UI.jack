@@ -12,26 +12,28 @@ class UI {
 	}
 
 	// функции отрисовки менюшек
-	function void drawFrame(){
+	function void drawFrame(int x1, int y1, int x2, int y2, int d){
 		//рисует рамку
 		do Screen.setColor(true);
 		//1 рамка
-		do Screen.drawLine(5, 5, 506, 5);
-		do Screen.drawLine(506, 5, 506, 250);
-		do Screen.drawLine(5, 250, 506, 250);
-		do Screen.drawLine(5, 5, 5, 250);
-		// 2 рамка
-		do Screen.drawLine(7, 7, 504, 7);
-		do Screen.drawLine(504, 7, 504, 248);
-		do Screen.drawLine(7, 248, 504, 248);
-		do Screen.drawLine(7, 7, 7, 248);
+		do Screen.drawLine(x1, y1, x2, y1);
+		do Screen.drawLine(x2, y1, x2, y2);
+		do Screen.drawLine(x1, y2, x2, y2);
+		do Screen.drawLine(x1, y1, x1, y2);
+		if (~(d = 0)) {
+			// 2 рамка
+			do Screen.drawLine(x1 + d, y1 + d, x2 - d, y1 + d);
+			do Screen.drawLine(x2 - d, y1 + d, x2 - d, y2 - d);
+			do Screen.drawLine(x1 + d, y2 - d, x2 - d, y2 - d);
+			do Screen.drawLine(x1 + d, y1 + d, x1 + d, y2 - d);
+		}
 		return;
 	}
 
 	function void drawMainMenu(){
 	// нарисовать главную менюшку: название игры, "Press Enter to play", имена авторов (нас) и, если хочешь, любые визуальные приколюхи
 		do UI.clearScreen();
-		do UI.drawFrame();
+		do UI.drawFrame(5, 5, 506, 250, 2);
 		do Output.moveCursor(8, 24);
 		do Output.printString("J A P A N E S E");
 		do Output.moveCursor(21,3);
@@ -58,7 +60,7 @@ class UI {
 	    let levelBeginCol = 18;
 		let levelOffsetCol = 6;
 		do UI.clearScreen();
-		do UI.drawFrame();
+		do UI.drawFrame(5, 5, 506, 250, 2);
 		do Output.moveCursor(5, 28);
 		do Output.printString("LEVELS");
 		let i = 0;
@@ -98,35 +100,6 @@ class UI {
 		let y1 = y + dy;
 		let x2 = x + xsize - dx;
 		let y2 = y + ysize - dy;
-		if (type = 1) {
-        	let y2 = y2 - dy;
-		}
-		if (type = 2) {
-        	let x1 = x1 + dx;
-		}
-		if (type = 3) {
-        	let y1 = y1 + dy;		
-		}
-		if (type = 4) {
-        	let x2 = x2 - dx;
-		}
-		if (type = 5) {
-        	let x1 = x1 + dx;
-			let y1 = y1 + dy;
-		}
-		if (type = 6) {
-			let y2 = y2 - dy;
-			let x1 = x1 + dx;
-		}
-		if (type = 7) {
-			let y1 = y1 + dy;
-			let x2 = x2 - dx;
-		}
-		if (type = 8) {
-			let x2 = x2 - dx;
-			let y2 = y2 - dy;
-		}
-
 		do Screen.drawRectangle(x1, y1, x2, y2);
         return;
 	}
@@ -155,86 +128,12 @@ class UI {
 	}
 
 	function void drawLevel(int numberLevel, int heightLevel, int widthLevel, int leftPanel, int UpPanel, Array rows, Array columns){ 
-		var int i, j, xStart, yStart, x, y, type;
-		//var Array rows, columns;
+		var int i, j, x, y, type;
 		let number = numberLevel; 
 		let height = heightLevel;
 		let width = widthLevel; 
 		let widthLeftPanel = leftPanel;
 		let heightUpPanel = UpPanel; 
-
-		//let rows = Array.new((height + heightUpPanel) * widthLeftPanel);
-
-		//массив цифр, 10- пробел
-        // let rows[0] = 10;
-        // let rows[1] = 10;
-        // let rows[2] = 10;
-        // let rows[3] = 1;
-        // let rows[4] = 10;
-		// let rows[5] = 10;
-		// let rows[6] = 10;
-        // let rows[7] = 10;
-        // let rows[8] = 10;
-        // let rows[9] = 10;
-        // let rows[10] = 1;
-        // let rows[11] = 10;
-		// let rows[12] = 10;
-		// let rows[13] = 10;
-		// let rows[14] = 10;
-	    // let rows[15] = 10;
-	    // let rows[16] = 1;
-	    // let rows[17] = 3;
-	    // let rows[18] = 1;
-	    // let rows[19] = 5;
-	    // let rows[20] = 10;
-	    // let rows[21] = 3;
-	    // let rows[22] = 4;
-	    // let rows[23] = 2;
-	    // let rows[24] = 1;
-	    // let rows[25] = 4;
-	    // let rows[26] = 1;
-	    // let rows[27] = 1;
-
-		// let columns = Array.new((width + widthLeftPanel) * heightUpPanel);
-        // let columns[0] = 10;
-        // let columns[1] = 10;
-        // let columns[2] = 10;
-        // let columns[3] = 10;
-        // let columns[4] = 10;
-		// let columns[5] = 10;
-		// let columns[6] = 1;
-        // let columns[7] = 10;
-        // let columns[8] = 10;
-        // let columns[9] = 10;
-        // let columns[10] = 10;
-        // let columns[11] = 10;
-		// let columns[12] = 10;
-		// let columns[13] = 10;
-		// let columns[14] = 10;
-	    // let columns[15] = 10;
-	    // let columns[16] = 10;
-	    // let columns[17] = 10;
-	    // let columns[18] = 1;
-	    // let columns[19] = 1;
-	    // let columns[20] = 2;
-	    // let columns[21] = 10;
-	    // let columns[22] = 1;
-	    // let columns[23] = 10;
-	    // let columns[24] = 10;
-	    // let columns[25] = 1;
-	    // let columns[26] = 10;
-	    // let columns[27] = 10;
-	    // let columns[28] = 10;
-	    // let columns[29] = 10;
-	    // let columns[30] = 3;
-	    // let columns[31] = 1;
-	    // let columns[32] = 1;
-	    // let columns[33] = 1;
-	    // let columns[34] = 7;
-	    // let columns[35] = 4;
-	    // let columns[36] = 2;
-	    // let columns[37] = 1;
-	    // let columns[38] = 1;
 
 		let digital = Array.new(121);
 		// 0
@@ -246,9 +145,9 @@ class UI {
 		let digital[5] = 102;
 		let digital[6] = 102;
 		let digital[7] = 102;
-		let digital[8] = 60;
-		let digital[9] = 24;
-		let digital[10] = 0;
+		let digital[8] = 102;
+		let digital[9] = 60;
+		let digital[10] = 24;
 		// 1
 		let digital[11] = 0;
 		let digital[12] = 24;
@@ -259,8 +158,8 @@ class UI {
 		let digital[17] = 24;
 		let digital[18] = 24;
 		let digital[19] = 24;
-		let digital[20] = 126;
-		let digital[21] = 0;
+		let digital[20] = 24;
+		let digital[21] = 126;
 		// 2
 		let digital[22] = 0;
 		let digital[23] = 60;
@@ -271,8 +170,8 @@ class UI {
 		let digital[28] = 24;
 		let digital[29] = 48;
 		let digital[30] = 96;
-		let digital[31] = 126;
-		let digital[32] = 0;
+		let digital[31] = 96;
+		let digital[32] = 126;
 		// 3
 		let digital[33] = 0;
 		let digital[34] = 60;
@@ -283,8 +182,8 @@ class UI {
 		let digital[39] = 6;
 		let digital[40] = 102;
 		let digital[41] = 102;
-		let digital[42] = 60;
-		let digital[43] = 0;
+		let digital[42] = 102;
+		let digital[43] = 60;
 		// 4
 		let digital[44] = 0;
 		let digital[45] = 14;
@@ -296,7 +195,7 @@ class UI {
 		let digital[51] = 70;
 		let digital[52] = 127;
 		let digital[53] = 6;
-		let digital[54] = 0;
+		let digital[54] = 6;
 		// 5
 		let digital[55] = 0;
 		let digital[56] = 62;
@@ -319,8 +218,8 @@ class UI {
 		let digital[72] = 102;
 		let digital[73] = 102;
 		let digital[74] = 102;
-		let digital[75] = 60;
-		let digital[76] = 0;
+		let digital[75] = 102;
+		let digital[76] = 60;
 		// 7
 		let digital[77] = 0;
 		let digital[78] = 126;
@@ -332,7 +231,7 @@ class UI {
 		let digital[84] = 24;
 		let digital[85] = 48;
 		let digital[86] = 48;
-		let digital[87] = 0;
+		let digital[87] = 48;
 		// 8
 		let digital[88] = 0;
 		let digital[89] = 60;
@@ -370,11 +269,11 @@ class UI {
 		let digital[119] = 0;
 		let digital[120] = 0;
 
-
-		do UI.drawFrame();
+		do UI.drawFrame(5, 5, 506, 250, 2);
   	    do Output.moveCursor(1, 29);
 		do Output.printString("LEVEL ");
 		do Output.printInt(number);
+
 		// размеры клетки
 		let xsize = 16;
 		let ysize = 16;
@@ -382,54 +281,17 @@ class UI {
 		let xbind = 256 - ((widthLeftPanel + width) * xsize / 2);
 		let ybind = 128 - ((height + heightUpPanel) * ysize / 2);
 
-		let xStart = xbind;
-		let yStart = ybind;
 		let i = 0;
 		let j = 0;
 		let x = 0;
 		let y = 0;
+		// рамка вокруг поля
+		do UI.drawFrame(xbind - 1, ybind - 1, (width + widthLeftPanel) * xsize + xbind + 1, (height + heightUpPanel) * ysize + ybind + 1, 0);
 		// печатаем ячейки
 		while (j < (height + heightUpPanel)) {
-			let x = i * xsize + xStart;
-			let y = j * ysize + yStart;
+			let x = i * xsize + xbind;
+			let y = j * ysize + ybind;
 			let type = 0;
-			// двойная нижняя
-			if (j = (height + heightUpPanel - 1)) {
-				let type = 1;
-			}
-			// двойная левая
-			if (i = 0) {
-				let type = 2;
-			}
-			// двойная верхняя
-			if (j = 0) {
-				let type = 3;
-			}
-			// двойная правая
-			if (i = (width + widthLeftPanel - 1)) {
-				let type = 4;
-			}
-			// левый верхний угол
-			if ((i = 0) & (j = 0)) {
-				let type = 5;
-			}
-			// левый нижний угол
-			if ((i = 0) & (j = (height + heightUpPanel - 1))) {
-				let type = 6;
-			}
-			// правый верхний угол
-			if ((i = (width + widthLeftPanel - 1)) & (j = 0)) {
-				let type = 7;
-			}
-			// правый нижний угол
-			if ((i = (width + widthLeftPanel - 1)) & (j = (height + heightUpPanel - 1))) {
-				let type = 8;
-			}
-
-			//if (i = (width + widthLeftPanel) - 1) {
-			//	let type = 1;
-			//}
-
 			do UI.drawCell(x, 1, y, 1, xsize, ysize, true, false, type);	
 			let i = i + 1;
 			if (i  = (width + widthLeftPanel)) {
@@ -439,8 +301,12 @@ class UI {
 				let y = 0;				
 			}
 		}
+		do Screen.setColor(true);
+		do Screen.drawLine(xbind, (heightUpPanel * ysize) + ybind - 1, (width + widthLeftPanel) * xsize + xbind, (heightUpPanel * ysize) + ybind - 1);
+		do Screen.drawLine((widthLeftPanel * xsize) + xbind - 1, ybind, (widthLeftPanel * xsize) + xbind - 1, ((height + heightUpPanel) * ysize) + ybind);
+
 		// печатаем символы верхней панели (массив columns)
-		let y = ybind + 3;
+		let y = ybind + 2;
 		let i = 0;
 		while (i < (heightUpPanel)) {
 			let x = xbind + 4;
