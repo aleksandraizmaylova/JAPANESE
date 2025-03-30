@@ -1,6 +1,6 @@
 class UI {
 
-	static int levelBeginRow, levelBeginCol, levelOffsetCol, xbind, ybind;
+	static int levelBeginRow, levelBeginCol, levelOffsetCol, xbind, ybind, xsize, ysize;
 	static int number, height, width, widthLeftPanel, heightUpPanel;
 	static Array digital;	
 
@@ -155,7 +155,8 @@ class UI {
 	}
 
 	function void drawLevel(int numberLevel, int heightLevel, int widthLevel, int leftPanel, int UpPanel, Array rows, Array columns){ 
-		var int i, j, xStart, yStart, x, y, xsize, ysize, type;
+		var int i, j, xStart, yStart, x, y, type;
+		//var Array rows, columns;
 		let number = numberLevel; 
 		let height = heightLevel;
 		let width = widthLevel; 
@@ -163,29 +164,77 @@ class UI {
 		let heightUpPanel = UpPanel; 
 
 		//let rows = Array.new((height + heightUpPanel) * widthLeftPanel);
+
 		//массив цифр, 10- пробел
         // let rows[0] = 10;
         // let rows[1] = 10;
         // let rows[2] = 10;
-        // let rows[3] = 10;
+        // let rows[3] = 1;
         // let rows[4] = 10;
 		// let rows[5] = 10;
-		// let rows[6] = 1;
+		// let rows[6] = 10;
         // let rows[7] = 10;
-        // let rows[8] = 2;
-        // let rows[9] = 1;
+        // let rows[8] = 10;
+        // let rows[9] = 10;
         // let rows[10] = 1;
-        // let rows[11] = 1;
-		// let rows[12] = 3;
-		// let rows[13] = 1;
+        // let rows[11] = 10;
+		// let rows[12] = 10;
+		// let rows[13] = 10;
+		// let rows[14] = 10;
+	    // let rows[15] = 10;
+	    // let rows[16] = 1;
+	    // let rows[17] = 3;
+	    // let rows[18] = 1;
+	    // let rows[19] = 5;
+	    // let rows[20] = 10;
+	    // let rows[21] = 3;
+	    // let rows[22] = 4;
+	    // let rows[23] = 2;
+	    // let rows[24] = 1;
+	    // let rows[25] = 4;
+	    // let rows[26] = 1;
+	    // let rows[27] = 1;
 
-		// let columns = Array.new(width + widthLeftPanel);
-        // let columns[0] = 32;
-        // let columns[1] = 32;
-        // let columns[2] = 49;
-        // let columns[3] = 54;
-        // let columns[4] = 49;
-        // let columns[5] = 50;
+		// let columns = Array.new((width + widthLeftPanel) * heightUpPanel);
+        // let columns[0] = 10;
+        // let columns[1] = 10;
+        // let columns[2] = 10;
+        // let columns[3] = 10;
+        // let columns[4] = 10;
+		// let columns[5] = 10;
+		// let columns[6] = 1;
+        // let columns[7] = 10;
+        // let columns[8] = 10;
+        // let columns[9] = 10;
+        // let columns[10] = 10;
+        // let columns[11] = 10;
+		// let columns[12] = 10;
+		// let columns[13] = 10;
+		// let columns[14] = 10;
+	    // let columns[15] = 10;
+	    // let columns[16] = 10;
+	    // let columns[17] = 10;
+	    // let columns[18] = 1;
+	    // let columns[19] = 1;
+	    // let columns[20] = 2;
+	    // let columns[21] = 10;
+	    // let columns[22] = 1;
+	    // let columns[23] = 10;
+	    // let columns[24] = 10;
+	    // let columns[25] = 1;
+	    // let columns[26] = 10;
+	    // let columns[27] = 10;
+	    // let columns[28] = 10;
+	    // let columns[29] = 10;
+	    // let columns[30] = 3;
+	    // let columns[31] = 1;
+	    // let columns[32] = 1;
+	    // let columns[33] = 1;
+	    // let columns[34] = 7;
+	    // let columns[35] = 4;
+	    // let columns[36] = 2;
+	    // let columns[37] = 1;
+	    // let columns[38] = 1;
 
 		let digital = Array.new(121);
 		// 0
@@ -232,10 +281,10 @@ class UI {
 		let digital[37] = 12;
 		let digital[38] = 28;
 		let digital[39] = 6;
-		let digital[40] = 6;
+		let digital[40] = 102;
 		let digital[41] = 102;
-		let digital[42] = 102;
-		let digital[43] = 60;
+		let digital[42] = 60;
+		let digital[43] = 0;
 		// 4
 		let digital[44] = 0;
 		let digital[45] = 14;
@@ -247,7 +296,7 @@ class UI {
 		let digital[51] = 70;
 		let digital[52] = 127;
 		let digital[53] = 6;
-		let digital[54] = 6;
+		let digital[54] = 0;
 		// 5
 		let digital[55] = 0;
 		let digital[56] = 62;
@@ -270,8 +319,8 @@ class UI {
 		let digital[72] = 102;
 		let digital[73] = 102;
 		let digital[74] = 102;
-		let digital[75] = 102;
-		let digital[76] = 60;
+		let digital[75] = 60;
+		let digital[76] = 0;
 		// 7
 		let digital[77] = 0;
 		let digital[78] = 126;
@@ -283,7 +332,7 @@ class UI {
 		let digital[84] = 24;
 		let digital[85] = 48;
 		let digital[86] = 48;
-		let digital[87] = 48;
+		let digital[87] = 0;
 		// 8
 		let digital[88] = 0;
 		let digital[89] = 60;
@@ -330,13 +379,11 @@ class UI {
 		let xsize = 16;
 		let ysize = 16;
 		// привязка общей сетки к Screen
-		let i = (256 - ((widthLeftPanel + width) * xsize / 2)) / 8;
-		let xbind = i * 8;
-		let i = (128 - ((height + heightUpPanel) * ysize / 2)) / 11;
-		let ybind = i * 11;
+		let xbind = 256 - ((widthLeftPanel + width) * xsize / 2);
+		let ybind = 128 - ((height + heightUpPanel) * ysize / 2);
 
-		let xStart = xbind - 4;
-		let yStart = ybind - 2;
+		let xStart = xbind;
+		let yStart = ybind;
 		let i = 0;
 		let j = 0;
 		let x = 0;
@@ -393,29 +440,13 @@ class UI {
 			}
 		}
 		// печатаем символы верхней панели (массив columns)
-		//let y = ybind / 11;
-		//let j = 0;
-		//while (j < heightUpPanel) {
-		//	let x = xbind / 8;
-		//	let i = 0;
-		//	while (i < (width + widthLeftPanel)) {
-		//		do Output.moveCursor(y, x);
-		//		do Output.printChar(columns[i + ((width + widthLeftPanel) * j)]);
-		//		let x = x + 2;
-		//		let i = i + 1;
-		//	}
-		//	let y = y + 1;
-		//	let j = j + 1;
-		//}
-		
-		let y = ybind;
+		let y = ybind + 3;
 		let i = 0;
 		while (i < (heightUpPanel)) {
-			let x = xbind;
+			let x = xbind + 4;
 			let j = 0;
 			while (j < (width + widthLeftPanel)) {
-				//do UI.drawDigital(x, y, columns[i + ((width + widthLeftPanel) * j)]);
-				do UI.drawDigital(x, y, 6);
+				do UI.drawDigital(x, y, columns[i * (width + widthLeftPanel) + j]);
 				let x = x + 16;
 				let j = j + 1;
 			}
@@ -423,20 +454,19 @@ class UI {
 			let y = y + 16;
 		}
 
-
 		// печатаем символы левой панели (массив rows)
-		let y = ybind;
+		let y = ybind + 3 + (heightUpPanel * ysize);
 		let i = 0;
-		while (i < (height + heightUpPanel)) {
-			let x = xbind;
+		while (i < height) {
+			let x = xbind + 4;
 			let j = 0;
 			while (j < widthLeftPanel) {
-				do UI.drawDigital(x, y, rows[i + ((height + heightUpPanel) * j)]);
+				do UI.drawDigital(x, y, rows[i + (height * j)]);
 				let x = x + 16;
 				let j = j + 1;
 			}
 			let i = i + 1;
-			let y = y + 16;
+			let y = y + ysize;
 		}
 		return;
 	}
@@ -453,19 +483,54 @@ class UI {
 	// если понадобится, можно передавать в метод номер уровня, чтобы в зависимости от него выбиралась точка отсчета на экране
 	function void selectEmptyCell(int x, int y){
 	// должно выделять пустую клетку на нарисованном поле по заданным координатам
-	return;
+		var int x1, y1;
+		let x1 = xbind + ((widthLeftPanel + x) * xsize);
+		let y1 = ybind + ((heightUpPanel + y) * ysize);
+		do Output.moveCursor(18, 3);
+		do Output.printInt(x);
+		do Output.printInt(y);
+
+		do UI.drawCell(x1, 3, y1, 3, xsize, ysize, true, false, 0);
+		return;
 	}
+
 	function void selectPaintedCell(int x, int y){
 	// должно выделять уже закрашенную клетку на нарисованном поле по заданным координатам
-	return;
+		var int x1, y1;
+		let x1 = xbind + ((widthLeftPanel + x) * xsize);
+		let y1 = ybind + ((heightUpPanel + y) * ysize);
+
+		do Output.moveCursor(19, 3);
+		do Output.printInt(x);
+		do Output.printInt(y);
+
+		do UI.drawCell(x1, 3, y1, 3, xsize, ysize, false, true, 0);
+		return;
 	}
+
 	function void clearCell(int x, int y){
 	// должно очищать клетку на нарисованном поле по заданным координатам
-	return;
+		var int x1, y1;
+		let x1 = xbind + ((widthLeftPanel + x) * xsize);
+		let y1 = ybind + ((heightUpPanel + y) * ysize);
+		do Output.moveCursor(20, 3);
+		do Output.printInt(x);
+		do Output.printInt(y);
+
+		do UI.drawCell(x1, 1, y1, 1, xsize, ysize, true, false, 0);
+		return;
 	}
 	function void paintCell(int x, int y){
 	// должно закрашивать клетку на нарисованном поле по заданным координатам
-	return;
+		var int x1, y1;
+		let x1 = xbind + ((widthLeftPanel + x) * xsize);
+		let y1 = ybind + ((heightUpPanel + y) * ysize);
+		do Output.moveCursor(21, 3);
+		do Output.printInt(x);
+		do Output.printInt(y);
+		
+		do UI.drawCell(x1, 1, y1, 1, xsize, ysize, false, true, 0);
+		return;
 	}
 
 	function void drawWinScreen(String str){
