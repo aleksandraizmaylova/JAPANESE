@@ -1,0 +1,347 @@
+function Game.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+not
+pop this 3
+push argument 0
+call Level.new 1
+pop this 2
+push constant 0
+pop this 0
+push constant 0
+pop this 1
+push pointer 0
+return
+function Game.isWon 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function Game.selectedCell 0
+push argument 0
+pop pointer 0
+push this 1
+push this 2
+call Level.width 1
+call Math.multiply 2
+push this 0
+add
+return
+function Game.start 1
+push argument 0
+pop pointer 0
+push this 2
+call Level.number 1
+push this 2
+call Level.height 1
+push this 2
+call Level.width 1
+push this 2
+call Level.leftPanel 1
+push this 2
+call Level.UpPanel 1
+push this 2
+call Level.rows 1
+push this 2
+call Level.columns 1
+call UI.drawLevel 7
+pop temp 0
+push this 0
+push this 1
+call UI.selectEmptyCell 2
+pop temp 0
+push constant 250
+call Sys.wait 1
+pop temp 0
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 132
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+push constant 1
+push constant 0
+call Game.move 3
+pop temp 0
+push constant 250
+call Sys.wait 1
+pop temp 0
+label IF_FALSE0
+push local 0
+push constant 130
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+push constant 1
+neg
+push constant 0
+call Game.move 3
+pop temp 0
+push constant 250
+call Sys.wait 1
+pop temp 0
+label IF_FALSE1
+push local 0
+push constant 131
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push pointer 0
+push constant 0
+push constant 1
+neg
+call Game.move 3
+pop temp 0
+push constant 250
+call Sys.wait 1
+pop temp 0
+label IF_FALSE2
+push local 0
+push constant 133
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+push constant 0
+push constant 1
+call Game.move 3
+pop temp 0
+push constant 250
+call Sys.wait 1
+pop temp 0
+label IF_FALSE3
+push local 0
+push constant 32
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push pointer 0
+call Game.paintOrEraseCell 1
+pop temp 0
+push constant 250
+call Sys.wait 1
+pop temp 0
+label IF_FALSE4
+push local 0
+push constant 128
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 2
+call Level.isSolutionCorrect 1
+pop this 3
+call Screen.clearScreen 0
+pop temp 0
+push this 3
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+call UI.drawWinScreen 0
+pop temp 0
+goto IF_END6
+label IF_FALSE6
+call UI.drawLoseScreen 0
+pop temp 0
+label IF_END6
+push constant 250
+call Sys.wait 1
+pop temp 0
+push this 2
+call Level.dispose 1
+pop temp 0
+label WHILE_EXP1
+push constant 0
+not
+not
+if-goto WHILE_END1
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 128
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 0
+return
+label IF_FALSE7
+goto WHILE_EXP1
+label WHILE_END1
+label IF_FALSE5
+push local 0
+push constant 140
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+return
+label IF_FALSE8
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Game.move 1
+push argument 0
+pop pointer 0
+push this 2
+call Level.solution 1
+pop local 0
+push pointer 0
+call Game.selectedCell 1
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 0
+not
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push this 1
+call UI.paintCell 2
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push this 0
+push this 1
+call UI.clearCell 2
+pop temp 0
+label IF_END0
+push this 0
+push argument 1
+add
+push this 2
+call Level.width 1
+lt
+push this 0
+push argument 1
+add
+push constant 1
+neg
+gt
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+push argument 1
+add
+pop this 0
+label IF_FALSE1
+push this 1
+push argument 2
+add
+push this 2
+call Level.height 1
+lt
+push this 1
+push argument 2
+add
+push constant 1
+neg
+gt
+and
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 1
+push argument 2
+add
+pop this 1
+label IF_FALSE2
+push pointer 0
+call Game.selectedCell 1
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 0
+not
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 0
+push this 1
+call UI.selectPaintedCell 2
+pop temp 0
+goto IF_END3
+label IF_FALSE3
+push this 0
+push this 1
+call UI.selectEmptyCell 2
+pop temp 0
+label IF_END3
+push constant 0
+return
+function Game.paintOrEraseCell 1
+push argument 0
+pop pointer 0
+push this 2
+call Level.solution 1
+pop local 0
+push pointer 0
+call Game.selectedCell 1
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 0
+not
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Game.selectedCell 1
+push local 0
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 0
+push this 1
+call UI.selectEmptyCell 2
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push pointer 0
+call Game.selectedCell 1
+push local 0
+add
+push constant 0
+not
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 0
+push this 1
+call UI.selectPaintedCell 2
+pop temp 0
+label IF_END0
+push constant 0
+return

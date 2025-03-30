@@ -1,0 +1,148 @@
+function Main.main 0
+call Main.goToMainMenu 0
+pop temp 0
+push constant 0
+return
+function Main.goToMainMenu 1
+call Screen.clearScreen 0
+pop temp 0
+call UI.drawMainMenu 0
+pop temp 0
+push constant 250
+call Sys.wait 1
+pop temp 0
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 128
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+call Main.goToLevelMenu 0
+pop temp 0
+label IF_FALSE0
+push local 0
+push constant 140
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+call Sys.halt 0
+pop temp 0
+label IF_FALSE1
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Main.goToLevelMenu 2
+push constant 1
+pop static 0
+call Screen.clearScreen 0
+pop temp 0
+call UI.drawLevelMenu 0
+pop temp 0
+push static 0
+call UI.highlightSelectedLevel 1
+pop temp 0
+push constant 250
+call Sys.wait 1
+pop temp 0
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 132
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push static 0
+push constant 6
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push static 0
+push constant 1
+add
+pop static 0
+push static 0
+call UI.highlightSelectedLevel 1
+pop temp 0
+label IF_FALSE1
+push constant 250
+call Sys.wait 1
+pop temp 0
+label IF_FALSE0
+push local 0
+push constant 130
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push static 0
+push constant 1
+gt
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push static 0
+push constant 1
+sub
+pop static 0
+push static 0
+call UI.highlightSelectedLevel 1
+pop temp 0
+label IF_FALSE3
+push constant 250
+call Sys.wait 1
+pop temp 0
+label IF_FALSE2
+push local 0
+push constant 128
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push static 0
+call Game.new 1
+pop local 1
+call Screen.clearScreen 0
+pop temp 0
+push local 1
+call Game.start 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+call UI.drawLevelMenu 0
+pop temp 0
+push static 0
+call UI.highlightSelectedLevel 1
+pop temp 0
+push constant 250
+call Sys.wait 1
+pop temp 0
+label IF_FALSE4
+push local 0
+push constant 140
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+call Main.goToMainMenu 0
+pop temp 0
+label IF_FALSE5
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
