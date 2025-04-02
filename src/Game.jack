@@ -114,7 +114,7 @@ class Game{
 		let sol = level.solution();
 		if (sol[selectedCell()] = 0) { do UI.clearCell(selectedCellX, selectedCellY); } 
 		if (sol[selectedCell()] = 1) { do UI.paintCell(selectedCellX, selectedCellY); } 
-		if (sol[selectedCell()] = 2) { do UI.drawYesCrossCell(selectedCellX, selectedCellY); } 
+		if (sol[selectedCell()] = 2) { do UI.clearSelectionCrossCell(selectedCellX, selectedCellY); } 
 
 		if (((selectedCellX + deltaX) < level.width()) & ((selectedCellX + deltaX) > -1)){
 			let selectedCellX = selectedCellX + deltaX;

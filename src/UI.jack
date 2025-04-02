@@ -396,8 +396,7 @@ class UI {
 		return;	
 	}
 
-	function void drawYesCrossCell(int x, int y){
-	// пометить "x" клетку на нарисованном поле по заданным координатам
+	function void clearSelectionCrossCell(int x, int y){
 		var int x1, y1;
 		let x1 = xbind + ((widthLeftPanel + x) * xsize);
 		let y1 = ybind + ((heightUpPanel + y) * ysize);
@@ -408,12 +407,24 @@ class UI {
 		return;
 	}
 
-	function void drawNoCrossCell(int x, int y){
-	// убрать "x" с клетки на нарисованном поле по заданным координатам
+	function void drawYesCrossCell(int x, int y){
+	// пометить "x" выделенную клетку на нарисованном поле по заданным координатам
 		var int x1, y1;
 		let x1 = xbind + ((widthLeftPanel + x) * xsize);
 		let y1 = ybind + ((heightUpPanel + y) * ysize);
-		do UI.drawCell(x1, 1, y1, 1, xsize, ysize, true, false, 0);
+		do UI.drawCell(x1, 3, y1, 3, xsize, ysize, true, false, 0);
+		let y1 = y1 + ycorrect;
+		let x1 = x1 + xcorrect;
+        do UI.drawDigital(x1, y1, 11);
+		return;
+	}
+
+	function void drawNoCrossCell(int x, int y){
+	// убрать "x" с выделенной клетки на нарисованном поле по заданным координатам
+		var int x1, y1;
+		let x1 = xbind + ((widthLeftPanel + x) * xsize);
+		let y1 = ybind + ((heightUpPanel + y) * ysize);
+		do UI.drawCell(x1, 3, y1, 3, xsize, ysize, true, false, 0);
 		return;
 	}
 
