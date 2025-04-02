@@ -1,8 +1,160 @@
 class UI {
 	static String japanese, authors, pressEnter, levels, lvl, won, lose;
-	static int levelBeginRow, levelBeginCol, levelOffsetCol, xbind, ybind, xsize, ysize;
+	static int levelBeginRow, levelBeginCol, levelOffsetCol; 
+	static int xbind, ybind, xsize, ysize, xcorrect, ycorrect;
 	static int number, height, width, widthLeftPanel, heightUpPanel;
 	static Array digital;	
+
+	function void fillArrayDigital(){
+		
+		let digital = Array.new(132);
+		// 0
+		let digital[0] = 0;
+		let digital[1] = 24;
+		let digital[2] = 60;
+		let digital[3] = 102;
+		let digital[4] = 102;
+		let digital[5] = 102;
+		let digital[6] = 102;
+		let digital[7] = 102;
+		let digital[8] = 102;
+		let digital[9] = 60;
+		let digital[10] = 24;
+		// 1
+		let digital[11] = 0;
+		let digital[12] = 24;
+		let digital[13] = 56;
+		let digital[14] = 120;
+		let digital[15] = 24;
+		let digital[16] = 24;
+		let digital[17] = 24;
+		let digital[18] = 24;
+		let digital[19] = 24;
+		let digital[20] = 24;
+		let digital[21] = 126;
+		// 2
+		let digital[22] = 0;
+		let digital[23] = 60;
+		let digital[24] = 102;
+		let digital[25] = 6;
+		let digital[26] = 6;
+		let digital[27] = 12;
+		let digital[28] = 24;
+		let digital[29] = 48;
+		let digital[30] = 96;
+		let digital[31] = 96;
+		let digital[32] = 126;
+		// 3
+		let digital[33] = 0;
+		let digital[34] = 60;
+		let digital[35] = 102;
+		let digital[36] = 102;
+		let digital[37] = 12;
+		let digital[38] = 28;
+		let digital[39] = 6;
+		let digital[40] = 102;
+		let digital[41] = 102;
+		let digital[42] = 102;
+		let digital[43] = 60;
+		// 4
+		let digital[44] = 0;
+		let digital[45] = 14;
+		let digital[46] = 14;
+		let digital[47] = 22;
+		let digital[48] = 22;
+		let digital[49] = 38;
+		let digital[50] = 38;
+		let digital[51] = 70;
+		let digital[52] = 127;
+		let digital[53] = 6;
+		let digital[54] = 6;
+		// 5
+		let digital[55] = 0;
+		let digital[56] = 62;
+		let digital[57] = 96;
+		let digital[58] = 96;
+		let digital[59] = 124;
+		let digital[60] = 6;
+		let digital[61] = 6;
+		let digital[62] = 6;
+		let digital[63] = 102;
+		let digital[64] = 102;
+		let digital[65] = 60;
+		// 6
+		let digital[66] = 0;
+		let digital[67] = 60;
+		let digital[68] = 96;
+		let digital[69] = 96;
+		let digital[70] = 96;
+		let digital[71] = 124;
+		let digital[72] = 102;
+		let digital[73] = 102;
+		let digital[74] = 102;
+		let digital[75] = 102;
+		let digital[76] = 60;
+		// 7
+		let digital[77] = 0;
+		let digital[78] = 126;
+		let digital[79] = 6;
+		let digital[80] = 6;
+		let digital[81] = 12;
+		let digital[82] = 12;
+		let digital[83] = 24;
+		let digital[84] = 24;
+		let digital[85] = 48;
+		let digital[86] = 48;
+		let digital[87] = 48;
+		// 8
+		let digital[88] = 0;
+		let digital[89] = 60;
+		let digital[90] = 102;
+		let digital[91] = 102;
+		let digital[92] = 102;
+		let digital[93] = 60;
+		let digital[94] = 102;
+		let digital[95] = 102;
+		let digital[96] = 102;
+		let digital[97] = 102;
+		let digital[98] = 60;
+		// 9
+		let digital[99] = 0;
+		let digital[100] = 60;
+		let digital[101] = 102;
+		let digital[102] = 102;
+		let digital[103] = 102;
+		let digital[104] = 110;
+		let digital[105] = 54;
+		let digital[106] = 6;
+		let digital[107] = 6;
+		let digital[108] = 12;
+		let digital[109] = 48;
+		// пробел
+		let digital[110] = 0;
+		let digital[111] = 0;
+		let digital[112] = 0;
+		let digital[113] = 0;
+		let digital[114] = 0;
+		let digital[115] = 0;
+		let digital[116] = 0;
+		let digital[117] = 0;
+		let digital[118] = 0;
+		let digital[119] = 0;
+		let digital[120] = 0;
+		// x
+		let digital[121] = 0;
+		let digital[122] = 0;
+		let digital[123] = 0;
+		let digital[124] = 34;
+		let digital[125] = 20;
+		let digital[126] = 8;
+		let digital[127] = 20;
+		let digital[128] = 34;
+		let digital[129] = 0;
+		let digital[130] = 0;
+		let digital[131] = 0;
+		
+		return;
+	}
 
 	function void init(){
 		let japanese = "J A P A N E S E";
@@ -146,150 +298,16 @@ class UI {
 		let widthLeftPanel = leftPanel;
 		let heightUpPanel = UpPanel; 
 
-		let digital = Array.new(121);
-		// 0
-		let digital[0] = 0;
-		let digital[1] = 24;
-		let digital[2] = 60;
-		let digital[3] = 102;
-		let digital[4] = 102;
-		let digital[5] = 102;
-		let digital[6] = 102;
-		let digital[7] = 102;
-		let digital[8] = 102;
-		let digital[9] = 60;
-		let digital[10] = 24;
-		// 1
-		let digital[11] = 0;
-		let digital[12] = 24;
-		let digital[13] = 56;
-		let digital[14] = 120;
-		let digital[15] = 24;
-		let digital[16] = 24;
-		let digital[17] = 24;
-		let digital[18] = 24;
-		let digital[19] = 24;
-		let digital[20] = 24;
-		let digital[21] = 126;
-		// 2
-		let digital[22] = 0;
-		let digital[23] = 60;
-		let digital[24] = 102;
-		let digital[25] = 6;
-		let digital[26] = 6;
-		let digital[27] = 12;
-		let digital[28] = 24;
-		let digital[29] = 48;
-		let digital[30] = 96;
-		let digital[31] = 96;
-		let digital[32] = 126;
-		// 3
-		let digital[33] = 0;
-		let digital[34] = 60;
-		let digital[35] = 102;
-		let digital[36] = 102;
-		let digital[37] = 12;
-		let digital[38] = 28;
-		let digital[39] = 6;
-		let digital[40] = 102;
-		let digital[41] = 102;
-		let digital[42] = 102;
-		let digital[43] = 60;
-		// 4
-		let digital[44] = 0;
-		let digital[45] = 14;
-		let digital[46] = 14;
-		let digital[47] = 22;
-		let digital[48] = 22;
-		let digital[49] = 38;
-		let digital[50] = 38;
-		let digital[51] = 70;
-		let digital[52] = 127;
-		let digital[53] = 6;
-		let digital[54] = 6;
-		// 5
-		let digital[55] = 0;
-		let digital[56] = 62;
-		let digital[57] = 96;
-		let digital[58] = 96;
-		let digital[59] = 124;
-		let digital[60] = 6;
-		let digital[61] = 6;
-		let digital[62] = 6;
-		let digital[63] = 102;
-		let digital[64] = 102;
-		let digital[65] = 60;
-		// 6
-		let digital[66] = 0;
-		let digital[67] = 60;
-		let digital[68] = 96;
-		let digital[69] = 96;
-		let digital[70] = 96;
-		let digital[71] = 124;
-		let digital[72] = 102;
-		let digital[73] = 102;
-		let digital[74] = 102;
-		let digital[75] = 102;
-		let digital[76] = 60;
-		// 7
-		let digital[77] = 0;
-		let digital[78] = 126;
-		let digital[79] = 6;
-		let digital[80] = 6;
-		let digital[81] = 12;
-		let digital[82] = 12;
-		let digital[83] = 24;
-		let digital[84] = 24;
-		let digital[85] = 48;
-		let digital[86] = 48;
-		let digital[87] = 48;
-		// 8
-		let digital[88] = 0;
-		let digital[89] = 60;
-		let digital[90] = 102;
-		let digital[91] = 102;
-		let digital[92] = 102;
-		let digital[93] = 60;
-		let digital[94] = 102;
-		let digital[95] = 102;
-		let digital[96] = 102;
-		let digital[97] = 102;
-		let digital[98] = 60;
-		// 9
-		let digital[99] = 0;
-		let digital[100] = 60;
-		let digital[101] = 102;
-		let digital[102] = 102;
-		let digital[103] = 102;
-		let digital[104] = 110;
-		let digital[105] = 54;
-		let digital[106] = 6;
-		let digital[107] = 6;
-		let digital[108] = 12;
-		let digital[109] = 48;
-		// пробел
-		let digital[110] = 0;
-		let digital[111] = 0;
-		let digital[112] = 0;
-		let digital[113] = 0;
-		let digital[114] = 0;
-		let digital[115] = 0;
-		let digital[116] = 0;
-		let digital[117] = 0;
-		let digital[118] = 0;
-		let digital[119] = 0;
-		let digital[120] = 0;
-
+		do UI.fillArrayDigital();
 		do UI.drawFrame(1, 1, 510, 255, 2);
   	    let i = 29;
 		// размеры клетки		
 		let xsize = 16;
-		let ysize = 16;
+		let ysize = 16;		
 		if (number > 4) {
 			let xsize = 16 - 2;
 			let ysize = 16 - 2;
 			let i = 4;
-
 		}
 		do Output.moveCursor(1, i);
 		do Output.printString(lvl);
@@ -298,7 +316,17 @@ class UI {
 		// привязка общей сетки к Screen
 		let xbind = 256 - ((widthLeftPanel + width) * xsize / 2);
 		let ybind = 128 - ((height + heightUpPanel) * ysize / 2);
+		let xcorrect = 4;
+		let ycorrect = 3;
 
+		do UI.buildPlayingField();
+		do UI.drawDigitalUpPanel(columns);
+		do UI.drawDigitalLeftPanel(rows);
+		return;
+	}
+
+	function void buildPlayingField(){
+		var int i, j, x, y, type;
 		let i = 0;
 		let j = 0;
 		let x = 0;
@@ -319,16 +347,20 @@ class UI {
 				let y = 0;				
 			}
 		}
-		// выделение игрового поля
+		// выделение игрового поля вертикальной и горизонтальными линиями
 		do Screen.setColor(true);
 		do Screen.drawLine(xbind, (heightUpPanel * ysize) + ybind - 1, (width + widthLeftPanel) * xsize + xbind, (heightUpPanel * ysize) + ybind - 1);
 		do Screen.drawLine((widthLeftPanel * xsize) + xbind - 1, ybind, (widthLeftPanel * xsize) + xbind - 1, ((height + heightUpPanel) * ysize) + ybind);
+		return;
+	}
 
+		function void drawDigitalUpPanel(Array columns){
 		// печатаем символы верхней панели (массив columns)
-		let y = ybind + 2;
+		var int y, x, i, j;
+		let y = ybind + ycorrect;
 		let i = 0;
 		while (i < (heightUpPanel)) {
-			let x = xbind + 4;
+			let x = xbind + xcorrect;
 			let j = 0;
 			while (j < (width + widthLeftPanel)) {
 				if ((columns[i * (width + widthLeftPanel) + j] > -1) & (columns[i * (width + widthLeftPanel) + j] < 11)) {
@@ -340,12 +372,16 @@ class UI {
 			let i = i + 1;
 			let y = y + ysize;
 		}
+		return;
+	}
 
-		// печатаем символы левой панели (массив rows)
-		let y = ybind + 3 + (heightUpPanel * ysize);
+	function void drawDigitalLeftPanel(Array rows){
+	// печатаем символы левой панели (массив rows)
+		var int y, x, i, j;
+		let y = ybind + ycorrect + (heightUpPanel * ysize);
 		let i = 0;
 		while (i < height) {
-			let x = xbind + 4;
+			let x = xbind + xcorrect;
 			let j = 0;
 			while (j < widthLeftPanel) {
 				if ((rows[i + (height * j)] < 11) & (rows[i + (height * j)] > -1)) {
@@ -357,6 +393,27 @@ class UI {
 			let i = i + 1;
 			let y = y + ysize;
 		}
+		return;	
+	}
+
+	function void drawYesCrossCell(int x, int y){
+	// пометить "x" клетку на нарисованном поле по заданным координатам
+		var int x1, y1;
+		let x1 = xbind + ((widthLeftPanel + x) * xsize);
+		let y1 = ybind + ((heightUpPanel + y) * ysize);
+		do UI.drawCell(x1, 1, y1, 1, xsize, ysize, true, false, 0);
+		let y1 = y1 + ycorrect;
+		let x1 = x1 + xcorrect;
+        do UI.drawDigital(x1, y1, 11);
+		return;
+	}
+
+	function void drawNoCrossCell(int x, int y){
+	// убрать "x" с клетки на нарисованном поле по заданным координатам
+		var int x1, y1;
+		let x1 = xbind + ((widthLeftPanel + x) * xsize);
+		let y1 = ybind + ((heightUpPanel + y) * ysize);
+		do UI.drawCell(x1, 1, y1, 1, xsize, ysize, true, false, 0);
 		return;
 	}
 
@@ -402,7 +459,7 @@ class UI {
 		do UI.drawFrame(5, 5, 506, 250, 2);
 		do Output.moveCursor(8, 24);
 		do Output.printString(japanese);
-		do Output.moveCursor(10, 20);
+		do Output.moveCursor(15, 27);
 		do Output.printString(won);
 		return;
 	}
