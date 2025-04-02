@@ -1,0 +1,51 @@
+class Keys{
+
+    function int space(){
+        return 32;
+    }
+
+    function int esc(){
+        return 140;
+    }
+
+    function int enter(){
+        return 128;
+    }
+
+    function int left(){
+        return 130;
+    }
+
+    function int up(){
+        return 131;
+    }
+
+    function int right(){
+        return 132;
+    }
+
+    function int down(){
+        return 133;
+    }
+
+    function int w(){
+        return 87;
+    }
+
+    function int a(){
+        return 65;
+    }
+
+    function int s(){
+        return 83;
+    }
+
+    function int d(){
+        return 68;
+    }
+
+    function int e(){
+        return 69;
+    }
+
+}

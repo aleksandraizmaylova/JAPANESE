@@ -45,16 +45,16 @@ class ArrayExtension{
         return this;
     }
 
-    constructor ArrayExtension newBooleanArray(String str){ // "1011" -> [true, false, true, true]
+    constructor ArrayExtension newNotReallyBooleanArray(String str){ // "1011" -> [1, 0, 1, 1]
         var int i;
         let i = str.length() - 1;
         let array = Array.new(i + 1);
         while (i > -1){
             if (str.charAt(i) = 48){ // ascii 0
-                let array[i] = false;
+                let array[i] = 0;
             }
             if (str.charAt(i) = 49) { // ascii 1
-                let array[i] = true;
+                let array[i] = 1;
             }
             let i = i - 1;
         }
@@ -68,6 +68,7 @@ class ArrayExtension{
 
     method void dispose(){
         do array.dispose();
+        do Memory.deAlloc(this);
         return;
     }
 }

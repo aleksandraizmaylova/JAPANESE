@@ -1,79 +1,126 @@
 class Game{
 	field int selectedCellX, selectedCellY;
 	field Level level;
-	field boolean isWon;
 
 	constructor Game new(int levelNumber){
-		let isWon = true;
 		let level = Level.new(levelNumber);
 		let selectedCellX = 0;
 		let selectedCellY = 0;
 		return this;
 	}
 
-    method boolean isWon(){
-        return isWon;
-    }
-
-	method int selectedCell(){
-		return selectedCellY * level.width() + selectedCellX;
-	}
-
 	method void start(){
 		var int key;
+		var boolean flag, isWon;
 		do UI.drawLevel(level.number(), level.height(), level.width(), level.leftPanel(), level.UpPanel(), level.rows(), level.columns());
 		do UI.selectEmptyCell(selectedCellX, selectedCellY);
 		do Sys.wait(250);
 		while (true){
 			let key = Keyboard.keyPressed();
 			// перемещение по "полю"
-			if (key = 132){ // ascii right
+			if ((key = Keys.d()) | (key = Keys.right())){
 				do move(1, 0);
-				do Sys.wait(250);
+				do Sys.wait(200);
 			}
-			if (key = 130){ // ascii left
+			if ((key = Keys.left()) | (key = Keys.a())){
 				do move(-1, 0);
-				do Sys.wait(250);
+				do Sys.wait(200);
 			}
-			if (key = 131){ // ascii up
+			if ((key = Keys.up()) | (key = Keys.w())){
 				do move(0, -1);
-				do Sys.wait(250);
+				do Sys.wait(200);
 			}
-			if (key = 133){ // ascii down
+			if ((key = Keys.down()) | (key = Keys.s())){
 				do move(0, 1);
-				do Sys.wait(250);
+				do Sys.wait(200);
 			}
 
-			//закрашивание/отбеливание клетки
-			if (key = 32){ // ascii space
+			//закрашивание/отбеливание/зачеркивание клетки
+			if (key = Keys.space()){
 				do paintOrEraseCell();
-				do Sys.wait(250);
+				do Sys.wait(200);
 			}
 
 			//конец
-			if (key = 128){ // ascii enter
+			if (key = Keys.enter()){
 				let isWon = level.isSolutionCorrect();
 				do Screen.clearScreen();
 				if (isWon){
 					do UI.drawWinScreen();
+					do Sys.wait(250);
+					do level.dispose();
+					while (true){
+						let key = Keyboard.keyPressed();
+						if (key = Keys.enter()){
+							return;
+						}
+					}
 				} else {
 					do UI.drawLoseScreen();
-				}
-				do Sys.wait(250);
-				do level.dispose();
-				while (true){
-					let key = Keyboard.keyPressed();
-					if (key = 128){
-						return;
+					do Sys.wait(250);
+					let flag = true;
+					while (flag){
+						let key = Keyboard.keyPressed();
+						if (key = Keys.enter()){
+							do Screen.clearScreen();
+							do recreateLevel();
+							let flag = false;
+							do Sys.wait(250);
+						}
 					}
 				}
 			}
 
 			//выход
-			if (key = 140){ // ascii esc
+			if (key = Keys.esc()){
 				do Screen.clearScreen();
+				do level.dispose();
 				return;
 			}
+		}
+		return;
+	}
+
+	method int selectedCell(){
+		return selectedCellY * level.width() + selectedCellX;
+	}
+	
+	method int getCellX(int cell){
+		var int x;
+		let x = cell;
+		while (x > (level.width() - 1)){
+			let x = x - level.width();
+		}
+		return x;
+	}
+
+	method int getCellY(int cell){
+		var int x, y;
+		let x = cell;
+		let y = 0;
+		while (x > (level.width() - 1)){
+			let x = x - level.width();
+			let y = y + 1;
+		}
+		return y;
+	}
+
+	method void recreateLevel(){
+        var int i;
+		var Array sol;
+		let sol = level.solution();
+        let i = 0;
+		do UI.drawLevel(level.number(), level.height(), level.width(), level.leftPanel(), level.UpPanel(), level.rows(), level.columns());
+        while (i < (level.height() * level.width() - 1)){    
+            if (sol[i] = 1){ 
+				do UI.paintCell(getCellX(i), getCellY(i));
+            }
+            let i = i + 1;
+        }
+		if (sol[selectedCell()] = 1) {
+			do UI.selectPaintedCell(selectedCellX, selectedCellY);
+		} else {
+			do UI.selectEmptyCell(selectedCellX, selectedCellY);
 		}
 		return;
 	}
@@ -81,7 +128,7 @@ class Game{
 	method void move(int deltaX, int deltaY){
 		var Array sol;
 		let sol = level.solution();
-		if (sol[selectedCell()] = true){
+		if (sol[selectedCell()] = 1){
 			do UI.paintCell(selectedCellX, selectedCellY);
 		} else {
 			do UI.clearCell(selectedCellX, selectedCellY);
@@ -94,7 +141,7 @@ class Game{
 			let selectedCellY = selectedCellY + deltaY;
 		}
 		
-		if (sol[selectedCell()] = true){
+		if (sol[selectedCell()] = 1){
 			do UI.selectPaintedCell(selectedCellX, selectedCellY);
 		} else {
 			do UI.selectEmptyCell(selectedCellX, selectedCellY);
@@ -105,11 +152,11 @@ class Game{
 	method void paintOrEraseCell(){
 		var Array sol;
 		let sol = level.solution();
-		if (sol[selectedCell()] = true){
-			let sol[selectedCell()] = false;
+		if (sol[selectedCell()] = 1){
+			let sol[selectedCell()] = 0;
 			do UI.selectEmptyCell(selectedCellX, selectedCellY);
 		} else {
-			let sol[selectedCell()] = true;
+			let sol[selectedCell()] = 1;
 			do UI.selectPaintedCell(selectedCellX, selectedCellY);
 		}
 		return;

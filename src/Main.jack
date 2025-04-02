@@ -2,6 +2,7 @@ class Main {
 	static int selectedLevel;
 
 	function void main(){
+		do UI.init();
 		do Main.goToMainMenu();
 		return;
 	}
@@ -14,10 +15,10 @@ class Main {
 		do Sys.wait(250);
 		while (true){
 			let key = Keyboard.keyPressed();
-			if (key = 128){
+			if (key = Keys.enter()){
 				do Main.goToLevelMenu();
 			}
-			if (key = 140){
+			if (key = Keys.esc()){
 				do Sys.halt();
 			}
 		}
@@ -35,14 +36,14 @@ class Main {
 		while (true){
 			let key = Keyboard.keyPressed();
 
-			if (key = 132){
+			if (key = Keys.right()){
 				if (selectedLevel < 6){
 					let selectedLevel = selectedLevel + 1;
 					do UI.highlightSelectedLevel(selectedLevel);
 				}
 				do Sys.wait(250);
 			}
-			if (key = 130){
+			if (key = Keys.left()){
 				if (selectedLevel > 1){
 					let selectedLevel = selectedLevel - 1;
 					do UI.highlightSelectedLevel(selectedLevel);
@@ -51,7 +52,7 @@ class Main {
 			}
 
 			//запуск уровня
-			if (key = 128){
+			if (key = Keys.enter()){
 				let game = Game.new(selectedLevel);
 				do Screen.clearScreen();
 				do game.start();
@@ -62,7 +63,7 @@ class Main {
 				do Sys.wait(250);
 			}
 
-			if (key = 140){
+			if (key = Keys.esc()){
 				do Main.goToMainMenu();
 			}
 		}
