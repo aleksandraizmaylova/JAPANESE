@@ -77,13 +77,16 @@ class Level{
         return;
     }
 
-    method boolean isSolutionCorrect(){ // ОНО РАБОТАЕТ
+    method boolean isSolutionCorrect(){ // ОНО РАБОТАЕТ (иногда)
         var int i;
         var boolean res;
         let i = 0;
         let res = true;
-        while (i < (height * width - 1)){    
-            if (~(solution[i] = expectedSolution[i])){ 
+        while (i < (height * width - 1)){ 
+            if ((expectedSolution[i] = 1) & ((solution[i] = 0) | (solution[i] = 2))){ 
+                let res = false;
+            }
+            if ((expectedSolution[i] = 0) & (solution[i] = 1)) {
                 let res = false;
             }
             let i = i + 1;

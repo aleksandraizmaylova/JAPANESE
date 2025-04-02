@@ -9,6 +9,30 @@ class Game{
 		return this;
 	}
 
+	method int selectedCell(){
+		return selectedCellY * level.width() + selectedCellX;
+	}
+	
+	method int getCellX(int cell){
+		var int x;
+		let x = cell;
+		while (x > (level.width() - 1)){
+			let x = x - level.width();
+		}
+		return x;
+	}
+
+	method int getCellY(int cell){
+		var int x, y;
+		let x = cell;
+		let y = 0;
+		while (x > (level.width() - 1)){
+			let x = x - level.width();
+			let y = y + 1;
+		}
+		return y;
+	}
+
 	method void start(){
 		var int key;
 		var boolean flag, isWon;
@@ -37,7 +61,11 @@ class Game{
 
 			//закрашивание/отбеливание/зачеркивание клетки
 			if (key = Keys.space()){
-				do paintOrEraseCell();
+				do paintOrClearCell();
+				do Sys.wait(200);
+			}
+			if (key = Keys.e()){
+				do crossOrClearCell();
 				do Sys.wait(200);
 			}
 
@@ -47,8 +75,8 @@ class Game{
 				do Screen.clearScreen();
 				if (isWon){
 					do UI.drawWinScreen();
-					do Sys.wait(250);
 					do level.dispose();
+					do Sys.wait(250);
 					while (true){
 						let key = Keyboard.keyPressed();
 						if (key = Keys.enter()){
@@ -81,58 +109,12 @@ class Game{
 		return;
 	}
 
-	method int selectedCell(){
-		return selectedCellY * level.width() + selectedCellX;
-	}
-	
-	method int getCellX(int cell){
-		var int x;
-		let x = cell;
-		while (x > (level.width() - 1)){
-			let x = x - level.width();
-		}
-		return x;
-	}
-
-	method int getCellY(int cell){
-		var int x, y;
-		let x = cell;
-		let y = 0;
-		while (x > (level.width() - 1)){
-			let x = x - level.width();
-			let y = y + 1;
-		}
-		return y;
-	}
-
-	method void recreateLevel(){
-        var int i;
-		var Array sol;
-		let sol = level.solution();
-        let i = 0;
-		do UI.drawLevel(level.number(), level.height(), level.width(), level.leftPanel(), level.UpPanel(), level.rows(), level.columns());
-        while (i < (level.height() * level.width() - 1)){    
-            if (sol[i] = 1){ 
-				do UI.paintCell(getCellX(i), getCellY(i));
-            }
-            let i = i + 1;
-        }
-		if (sol[selectedCell()] = 1) {
-			do UI.selectPaintedCell(selectedCellX, selectedCellY);
-		} else {
-			do UI.selectEmptyCell(selectedCellX, selectedCellY);
-		}
-		return;
-	}
-
 	method void move(int deltaX, int deltaY){
 		var Array sol;
 		let sol = level.solution();
-		if (sol[selectedCell()] = 1){
-			do UI.paintCell(selectedCellX, selectedCellY);
-		} else {
-			do UI.clearCell(selectedCellX, selectedCellY);
-		}
+		if (sol[selectedCell()] = 0) { do UI.clearCell(selectedCellX, selectedCellY); } 
+		if (sol[selectedCell()] = 1) { do UI.paintCell(selectedCellX, selectedCellY); } 
+		if (sol[selectedCell()] = 2) { do UI.drawYesCrossCell(selectedCellX, selectedCellY); } 
 
 		if (((selectedCellX + deltaX) < level.width()) & ((selectedCellX + deltaX) > -1)){
 			let selectedCellX = selectedCellX + deltaX;
@@ -140,16 +122,14 @@ class Game{
 		if (((selectedCellY + deltaY) < level.height()) & ((selectedCellY + deltaY) > -1)){
 			let selectedCellY = selectedCellY + deltaY;
 		}
-		
-		if (sol[selectedCell()] = 1){
-			do UI.selectPaintedCell(selectedCellX, selectedCellY);
-		} else {
-			do UI.selectEmptyCell(selectedCellX, selectedCellY);
-		}
+
+		if (sol[selectedCell()] = 0) { do UI.selectEmptyCell(selectedCellX, selectedCellY); } 
+		if (sol[selectedCell()] = 1) { do UI.selectPaintedCell(selectedCellX, selectedCellY); } 
+		if (sol[selectedCell()] = 2) { do UI.drawYesCrossCell(selectedCellX, selectedCellY); } //!!!!
 		return;
 	}
 
-	method void paintOrEraseCell(){
+	method void paintOrClearCell(){
 		var Array sol;
 		let sol = level.solution();
 		if (sol[selectedCell()] = 1){
@@ -159,6 +139,37 @@ class Game{
 			let sol[selectedCell()] = 1;
 			do UI.selectPaintedCell(selectedCellX, selectedCellY);
 		}
+		do sol.dispose();
+		return;
+	}
+
+	method void crossOrClearCell(){
+		var Array sol;
+		let sol = level.solution();
+		if (sol[selectedCell()] = 2){
+			let sol[selectedCell()] = 0;
+			do UI.selectEmptyCell(selectedCellX, selectedCellY);
+		} else {
+			let sol[selectedCell()] = 2;
+			do UI.drawYesCrossCell(selectedCellX, selectedCellY);
+		}
+		return;
+	}
+
+	method void recreateLevel(){
+        var int i;
+		var Array sol;
+		let sol = level.solution();
+        let i = 0;
+		do UI.drawLevel(level.number(), level.height(), level.width(), level.leftPanel(), level.UpPanel(), level.rows(), level.columns());
+        while (i < (level.height() * level.width() - 1)){    
+            if (sol[i] = 1){ do UI.paintCell(getCellX(i), getCellY(i)); }  
+            if (sol[i] = 2){ do UI.drawYesCrossCell(getCellX(i), getCellY(i)); } 
+            let i = i + 1;
+        }
+		if (sol[selectedCell()] = 0) { do UI.selectEmptyCell(selectedCellX, selectedCellY); }
+		if (sol[selectedCell()] = 1) { do UI.selectPaintedCell(selectedCellX, selectedCellY); } 
+		if (sol[selectedCell()] = 2) { do UI.selectPaintedCell(selectedCellX, selectedCellY); }  //!!!!
 		return;
 	}
 }
