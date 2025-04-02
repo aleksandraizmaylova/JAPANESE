@@ -3,7 +3,7 @@ class UI {
 	static int levelBeginRow, levelBeginCol, levelOffsetCol; 
 	static int xbind, ybind, xsize, ysize, xcorrect, ycorrect;
 	static int number, height, width, widthLeftPanel, heightUpPanel;
-	static Array digital;	
+	static Array digital, rows, columns;	
 
 	function void fillArrayDigital(){
 		
@@ -290,13 +290,15 @@ class UI {
 		return;
 	}
 
-	function void drawLevel(int numberLevel, int heightLevel, int widthLevel, int leftPanel, int UpPanel, Array rows, Array columns){ 
+	function void drawLevel(Level level){ 
 		var int i, j, x, y, type;
-		let number = numberLevel; 
-		let height = heightLevel;
-		let width = widthLevel; 
-		let widthLeftPanel = leftPanel;
-		let heightUpPanel = UpPanel; 
+		let number = level.number(); 
+		let height = level.height();
+		let width = level.width(); 
+		let widthLeftPanel = level.leftPanel();
+		let heightUpPanel = level.UpPanel(); 
+		let rows = level.rows();
+		let columns = level.columns();
 
 		do UI.fillArrayDigital();
 		do UI.drawFrame(1, 1, 510, 255, 2);
