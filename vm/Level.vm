@@ -4441,13 +4441,14 @@ pop local 0
 push local 0
 call ArrayExtension.array 1
 pop this 5
-push this 1
-push this 2
-call Math.multiply 2
-call Array.new 1
+push argument 9
+call ArrayExtension.newNotReallyBooleanArray 1
+pop local 0
+push local 0
+call ArrayExtension.array 1
 pop this 8
 push argument 8
-call ArrayExtension.newBooleanArray 1
+call ArrayExtension.newNotReallyBooleanArray 1
 pop local 0
 push local 0
 call ArrayExtension.array 1
@@ -4473,23 +4474,55 @@ lt
 not
 if-goto WHILE_END0
 push local 0
-push this 8
-add
-pop pointer 1
-push that 0
-push local 0
 push this 7
 add
 pop pointer 1
 push that 0
+push constant 1
 eq
-not
+push local 0
+push this 8
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+push local 0
+push this 8
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+or
+and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push constant 0
 pop local 1
 label IF_FALSE0
+push local 0
+push this 7
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+push local 0
+push this 8
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+pop local 1
+label IF_FALSE1
 push local 0
 push constant 1
 add
@@ -4557,6 +4590,9 @@ call Array.dispose 1
 pop temp 0
 push this 8
 call Array.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return

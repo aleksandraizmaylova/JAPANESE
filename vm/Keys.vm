@@ -1,0 +1,36 @@
+function Keys.space 0
+push constant 32
+return
+function Keys.esc 0
+push constant 140
+return
+function Keys.enter 0
+push constant 128
+return
+function Keys.left 0
+push constant 130
+return
+function Keys.up 0
+push constant 131
+return
+function Keys.right 0
+push constant 132
+return
+function Keys.down 0
+push constant 133
+return
+function Keys.w 0
+push constant 87
+return
+function Keys.a 0
+push constant 65
+return
+function Keys.s 0
+push constant 83
+return
+function Keys.d 0
+push constant 68
+return
+function Keys.e 0
+push constant 69
+return

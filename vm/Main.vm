@@ -1,4 +1,6 @@
 function Main.main 0
+call UI.init 0
+pop temp 0
 call Main.goToMainMenu 0
 pop temp 0
 push constant 0
@@ -19,7 +21,7 @@ if-goto WHILE_END0
 call Keyboard.keyPressed 0
 pop local 0
 push local 0
-push constant 128
+call Keys.enter 0
 eq
 if-goto IF_TRUE0
 goto IF_FALSE0
@@ -28,7 +30,7 @@ call Main.goToLevelMenu 0
 pop temp 0
 label IF_FALSE0
 push local 0
-push constant 140
+call Keys.esc 0
 eq
 if-goto IF_TRUE1
 goto IF_FALSE1
@@ -61,7 +63,7 @@ if-goto WHILE_END0
 call Keyboard.keyPressed 0
 pop local 0
 push local 0
-push constant 132
+call Keys.right 0
 eq
 if-goto IF_TRUE0
 goto IF_FALSE0
@@ -85,7 +87,7 @@ call Sys.wait 1
 pop temp 0
 label IF_FALSE0
 push local 0
-push constant 130
+call Keys.left 0
 eq
 if-goto IF_TRUE2
 goto IF_FALSE2
@@ -109,7 +111,7 @@ call Sys.wait 1
 pop temp 0
 label IF_FALSE2
 push local 0
-push constant 128
+call Keys.enter 0
 eq
 if-goto IF_TRUE4
 goto IF_FALSE4
@@ -134,7 +136,7 @@ call Sys.wait 1
 pop temp 0
 label IF_FALSE4
 push local 0
-push constant 140
+call Keys.esc 0
 eq
 if-goto IF_TRUE5
 goto IF_FALSE5
