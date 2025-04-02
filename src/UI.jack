@@ -1,8 +1,19 @@
 class UI {
-
+	static String japanese, authors, pressEnter, levels, lvl, won, lose;
 	static int levelBeginRow, levelBeginCol, levelOffsetCol, xbind, ybind, xsize, ysize;
 	static int number, height, width, widthLeftPanel, heightUpPanel;
 	static Array digital;	
+
+	function void init(){
+		let japanese = "J A P A N E S E";
+		let authors = "Authors: Izmaylova Aleksandra, Pavlova Anna";
+		let pressEnter = "Press Enter to play";
+		let levels = "LEVELS";
+		let lvl = "LEVEL ";
+		let won = "YOU WON";
+		let lose = "YOU LOSE";
+		return;
+	}
 
 	function void clearScreen(){
 	// просто очистка экрана
@@ -35,11 +46,11 @@ class UI {
 		do UI.clearScreen();
 		do UI.drawFrame(5, 5, 506, 250, 2);
 		do Output.moveCursor(8, 24);
-		do Output.printString("J A P A N E S E");
+		do Output.printString(japanese);
 		do Output.moveCursor(21,3);
-		do Output.printString("Authors: Izmaylova Aleksandra, Pavlova Anna");
+		do Output.printString(authors);
 		do Output.moveCursor(14,22);
-		do Output.printString("Press Enter to play");
+		do Output.printString(pressEnter);
 		return;
 	}
 	
@@ -62,7 +73,7 @@ class UI {
 		do UI.clearScreen();
 		do UI.drawFrame(5, 5, 506, 250, 2);
 		do Output.moveCursor(5, 28);
-		do Output.printString("LEVELS");
+		do Output.printString(levels);
 		let i = 0;
 		while (i < 6) {
 			do Output.moveCursor(levelBeginRow, i * levelOffsetCol + levelBeginCol);
@@ -281,7 +292,7 @@ class UI {
 
 		}
 		do Output.moveCursor(1, i);
-		do Output.printString("LEVEL ");
+		do Output.printString(lvl);
 		do Output.printInt(number);
 
 		// привязка общей сетки к Screen
@@ -390,9 +401,9 @@ class UI {
 	// нарисовать экран при победе
 		do UI.drawFrame(5, 5, 506, 250, 2);
 		do Output.moveCursor(8, 24);
-		do Output.printString("J A P A N E S E");
+		do Output.printString(japanese);
 		do Output.moveCursor(10, 20);
-		do Output.printString("YOU WON");
+		do Output.printString(won);
 		return;
 	}
 
@@ -400,9 +411,9 @@ class UI {
 	// нарисовать экран при проигрыше
 		do UI.drawFrame(5, 5, 506, 250, 2);
 		do Output.moveCursor(8, 24);
-		do Output.printString("J A P A N E S E");
+		do Output.printString(japanese);
 		do Output.moveCursor(15, 27);
-		do Output.printString("YOU LOSE");
+		do Output.printString(lose);
 		return;
 	}
 }
